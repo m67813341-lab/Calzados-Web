@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Calzados ChrisVer</title>
 
@@ -34,7 +33,7 @@ header {
 }
 
 header h1 {
-    font-size: 27px;
+    font-size: 28px;
 }
 
 header p {
@@ -88,14 +87,10 @@ nav a {
     font-weight: bold;
 }
 
-.boton:hover {
-    opacity: 0.85;
-}
-
 /* CATALOGO */
 
 .catalogo {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
     padding: 40px 18px;
 }
@@ -120,7 +115,6 @@ nav a {
     display: grid;
     grid-template-columns:
     repeat(auto-fit, minmax(180px, 1fr));
-
     gap: 20px;
 }
 
@@ -134,7 +128,7 @@ nav a {
 
 .producto img {
     width: 100%;
-    height: 220px;
+    height: 230px;
     object-fit: cover;
 }
 
@@ -143,8 +137,14 @@ nav a {
 }
 
 .producto h3 {
-    margin-bottom: 8px;
     font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.codigo {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 8px;
 }
 
 .precio {
@@ -175,14 +175,21 @@ nav a {
     background: #111;
     color: white;
     text-decoration: none;
-    padding: 9px 13px;
+    padding: 8px 11px;
     border-radius: 6px;
     margin: 3px;
     font-weight: bold;
+    font-size: 14px;
 }
 
 .talle:hover {
     opacity: 0.8;
+}
+
+.stock {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555;
 }
 
 /* CONTACTO */
@@ -264,83 +271,46 @@ footer p {
 <body>
 
 
-<!-- ENCABEZADO -->
-
 <header>
 
-<h1>
-CALZADOS CHRISVER
-</h1>
+<h1>CALZADOS CHRISVER</h1>
 
-<p>
-Zapatos • Sandalias • Botas
-</p>
+<p>Zapatos • Sandalias • Botas</p>
 
 </header>
 
 
-<!-- MENU -->
-
 <nav>
 
-<a href="#inicio">
-Inicio
-</a>
+<a href="#inicio">Inicio</a>
 
-<a href="#catalogo">
-Catálogo
-</a>
+<a href="#catalogo">Catálogo</a>
 
-<a href="#contacto">
-Contacto
-</a>
+<a href="#contacto">Contacto</a>
 
 </nav>
 
 
-<!-- PORTADA -->
+<section class="hero" id="inicio">
 
-<section
-class="hero"
-id="inicio"
->
+<h2>Encontrá tu próximo par 👟</h2>
 
-<h2>
-Encontrá tu próximo par 👟
-</h2>
+<p>Descubrí nuestros modelos disponibles.</p>
 
-<p>
-Descubrí nuestros modelos disponibles.
-</p>
-
-<a
-href="#catalogo"
-class="boton"
->
-
+<a href="#catalogo" class="boton">
 VER CATÁLOGO
-
 </a>
 
 </section>
 
 
-<!-- CATALOGO -->
-
-<section
-class="catalogo"
-id="catalogo"
->
+<section class="catalogo" id="catalogo">
 
 <div class="titulo">
 
-<h2>
-Nuestro catálogo
-</h2>
+<h2>Nuestro catálogo</h2>
 
-<p>
-Consultá talles, colores y disponibilidad.
-</p>
+<p>Consultá talles, colores y disponibilidad.</p>
 
 </div>
 
@@ -352,110 +322,101 @@ Consultá talles, colores y disponibilidad.
 
 <div class="producto">
 
-
 <img
 src="IMG_20260829_184043_243.jpg"
 alt="Guille negro"
 >
 
-
 <div class="producto-info">
 
+<h3>Guille</h3>
 
-<h3>
-Guille
-</h3>
-
-
-<div class="precio">
-
-$20.000
-
+<div class="codigo">
+Código: G-001
 </div>
 
+<div class="precio">
+$20.000
+</div>
 
 <div class="datos">
 
-<strong>
-Color:
-</strong>
-
-Negro
+<strong>Color:</strong> Negro
 
 </div>
-
 
 <div class="talles">
 
-<p>
-Elegí tu talle:
-</p>
-
+<p>Elegí tu talle:</p>
 
 <a
 class="talle"
-href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20color%20negro%2C%20talle%2036."
+href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2036."
 target="_blank"
 >
-
 36
-
 </a>
-
 
 <a
 class="talle"
-href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20color%20negro%2C%20talle%2037."
+href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2037."
 target="_blank"
 >
-
 37
-
 </a>
 
 </div>
 
+<div class="stock">
+Stock: 36 (1) · 37 (1)
+</div>
 
-<div
-class="datos"
-style="margin-top:12px;"
+</div>
+
+</div>
+
+
+<!-- CARIBE CHAMPAGNE -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_192017_173.jpg"
+alt="Caribe Champagne"
 >
 
-<strong>
-Stock:
-</strong>
-
-1 unidad talle 36
-<br>
-1 unidad talle 37
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- PRODUCTO FUTURO -->
-
-<div class="producto">
-
 <div class="producto-info">
 
-<h3>
-Próximamente
-</h3>
+<h3>Caribe</h3>
+
+<div class="codigo">
+Código: C-001
+</div>
 
 <div class="precio">
----
+$20.000
 </div>
 
 <div class="datos">
+<strong>Color:</strong> Champagne
+</div>
 
-Más productos
-próximamente.
+<div class="talles">
 
+<p>Elegí tu talle:</p>
+
+<a
+class="talle"
+href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20color%20Champagne%2C%20talle%2039."
+target="_blank"
+>
+39
+</a>
+
+</div>
+
+<div class="stock">
+Stock: 39 (1)
 </div>
 
 </div>
@@ -463,25 +424,327 @@ próximamente.
 </div>
 
 
-<!-- PRODUCTO FUTURO -->
+<!-- BIKER VERDE -->
 
 <div class="producto">
 
+<img
+src="IMG_20260829_192225_225.jpg"
+alt="Biker Verde"
+>
+
 <div class="producto-info">
 
-<h3>
-Próximamente
-</h3>
+<h3>Biker</h3>
+
+<div class="codigo">
+Código: B-001
+</div>
 
 <div class="precio">
----
+$20.000
 </div>
 
 <div class="datos">
+<strong>Color:</strong> Verde
+</div>
 
-Más productos
-próximamente.
+<div class="talles">
 
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2035." target="_blank">35</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2036." target="_blank">36</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2037." target="_blank">37</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2038." target="_blank">38</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2040." target="_blank">40</a>
+
+</div>
+
+<div class="stock">
+Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 40 (1)
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BIKER ROSA -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_192502_690.jpg"
+alt="Biker Rosa"
+>
+
+<div class="producto-info">
+
+<h3>Biker</h3>
+
+<div class="codigo">
+Código: B-002
+</div>
+
+<div class="precio">
+$20.000
+</div>
+
+<div class="datos">
+<strong>Color:</strong> Rosa
+</div>
+
+<div class="talles">
+
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2037." target="_blank">37</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2038." target="_blank">38</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2039." target="_blank">39</a>
+
+</div>
+
+<div class="stock">
+Stock: 37 (1) · 38 (2) · 39 (1)
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CARIBE MOSTAZA -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_192739_311.jpg"
+alt="Caribe Mostaza"
+>
+
+<div class="producto-info">
+
+<h3>Caribe</h3>
+
+<div class="codigo">
+Código: C-002
+</div>
+
+<div class="precio">
+$20.000
+</div>
+
+<div class="datos">
+<strong>Color:</strong> Mostaza
+</div>
+
+<div class="talles">
+
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2035." target="_blank">35</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2036." target="_blank">36</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2037." target="_blank">37</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2038." target="_blank">38</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2039." target="_blank">39</a>
+
+</div>
+
+<div class="stock">
+Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 39 (2)
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SANDALIA ALTA ORO -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_192904_311.jpg"
+alt="Sandalia alta Oro"
+>
+
+<div class="producto-info">
+
+<h3>Sandalia alta</h3>
+
+<div class="codigo">
+Código: SA-001
+</div>
+
+<div class="precio">
+$20.000
+</div>
+
+<div class="datos">
+<strong>Color:</strong> Oro
+</div>
+
+<div class="talles">
+
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2037." target="_blank">37</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2039." target="_blank">39</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2040." target="_blank">40</a>
+
+</div>
+
+<div class="stock">
+Stock: 37 (1) · 39 (1) · 40 (1)
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SANDALIA ALTA PLATA -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_193017_381.jpg"
+alt="Sandalia alta Plata"
+>
+
+<div class="producto-info">
+
+<h3>Sandalia alta</h3>
+
+<div class="codigo">
+Código: SA-002
+</div>
+
+<div class="precio">
+$20.000
+</div>
+
+<div class="datos">
+<strong>Color:</strong> Plata
+</div>
+
+<div class="talles">
+
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2035." target="_blank">35</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2036." target="_blank">36</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2037." target="_blank">37</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2039." target="_blank">39</a>
+
+</div>
+
+<div class="stock">
+Stock: 35 (1) · 36 (1) · 37 (1) · 39 (1)
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SUECO NEGRO -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_193148_592.jpg"
+alt="Sueco Negro"
+>
+
+<div class="producto-info">
+
+<h3>Sueco</h3>
+
+<div class="codigo">
+Código: S-001
+</div>
+
+<div class="precio">
+$20.000
+</div>
+
+<div class="datos">
+<strong>Color:</strong> Negro
+</div>
+
+<div class="talles">
+
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20negro%2C%20talle%2035." target="_blank">35</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20negro%2C%20talle%2040." target="_blank">40</a>
+
+</div>
+
+<div class="stock">
+Stock: 35 (1) · 40 (2)
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SUECO CAMEL -->
+
+<div class="producto">
+
+<img
+src="IMG_20260829_193257_304.jpg"
+alt="Sueco Camel"
+>
+
+<div class="producto-info">
+
+<h3>Sueco</h3>
+
+<div class="codigo">
+Código: S-002
+</div>
+
+<div class="precio">
+$20.000
+</div>
+
+<div class="datos">
+<strong>Color:</strong> Camel
+</div>
+
+<div class="talles">
+
+<p>Elegí tu talle:</p>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20camel%2C%20talle%2035." target="_blank">35</a>
+
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20camel%2C%20talle%2036." target="_blank">36</a>
+
+</div>
+
+<div class="stock">
+Stock: 35 (1) · 36 (1)
 </div>
 
 </div>
@@ -510,7 +773,6 @@ Consultanos por disponibilidad,
 talles y colores.
 </p>
 
-
 <a
 href="https://wa.me/5492226622331"
 class="boton"
@@ -521,9 +783,7 @@ target="_blank"
 
 </a>
 
-
 <br>
-
 
 <a
 href="#"
@@ -536,8 +796,6 @@ class="instagram"
 
 </section>
 
-
-<!-- FOOTER -->
 
 <footer>
 
@@ -554,4 +812,4 @@ CALZADOS CHRISVER
 
 </body>
 
-</html>
+    </html>
