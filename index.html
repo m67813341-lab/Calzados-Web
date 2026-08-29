@@ -87,6 +87,10 @@ nav a {
     font-weight: bold;
 }
 
+.boton:hover {
+    opacity: 0.85;
+}
+
 /* CATALOGO */
 
 .catalogo {
@@ -113,8 +117,7 @@ nav a {
 
 .productos {
     display: grid;
-    grid-template-columns:
-    repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 20px;
 }
 
@@ -122,14 +125,19 @@ nav a {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow:
-    0 3px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 
 .producto img {
     width: 100%;
     height: 230px;
     object-fit: cover;
+    cursor: pointer;
+    display: block;
+}
+
+.producto img:hover {
+    opacity: 0.9;
 }
 
 .producto-info {
@@ -190,6 +198,40 @@ nav a {
     margin-top: 10px;
     font-size: 13px;
     color: #555;
+}
+
+/* VENTANA DE FOTO GRANDE */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal img {
+    max-width: 95%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.cerrar {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
 }
 
 /* CONTACTO */
@@ -325,6 +367,7 @@ VER CATÁLOGO
 <img
 src="IMG_20260829_184043_243.jpg"
 alt="Guille negro"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -340,30 +383,16 @@ $20.000
 </div>
 
 <div class="datos">
-
 <strong>Color:</strong> Negro
-
 </div>
 
 <div class="talles">
 
 <p>Elegí tu talle:</p>
 
-<a
-class="talle"
-href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2036."
-target="_blank"
->
-36
-</a>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2036." target="_blank">36</a>
 
-<a
-class="talle"
-href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2037."
-target="_blank"
->
-37
-</a>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2037." target="_blank">37</a>
 
 </div>
 
@@ -383,6 +412,7 @@ Stock: 36 (1) · 37 (1)
 <img
 src="IMG_20260829_192017_173.jpg"
 alt="Caribe Champagne"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -405,13 +435,7 @@ $20.000
 
 <p>Elegí tu talle:</p>
 
-<a
-class="talle"
-href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20color%20Champagne%2C%20talle%2039."
-target="_blank"
->
-39
-</a>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20color%20Champagne%2C%20talle%2039." target="_blank">39</a>
 
 </div>
 
@@ -431,6 +455,7 @@ Stock: 39 (1)
 <img
 src="IMG_20260829_192225_225.jpg"
 alt="Biker Verde"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -481,6 +506,7 @@ Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 40 (1)
 <img
 src="IMG_20260829_192502_690.jpg"
 alt="Biker Rosa"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -527,6 +553,7 @@ Stock: 37 (1) · 38 (2) · 39 (1)
 <img
 src="IMG_20260829_192739_311.jpg"
 alt="Caribe Mostaza"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -577,6 +604,7 @@ Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 39 (2)
 <img
 src="IMG_20260829_192904_311.jpg"
 alt="Sandalia alta Oro"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -623,6 +651,7 @@ Stock: 37 (1) · 39 (1) · 40 (1)
 <img
 src="IMG_20260829_193017_381.jpg"
 alt="Sandalia alta Plata"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -671,6 +700,7 @@ Stock: 35 (1) · 36 (1) · 37 (1) · 39 (1)
 <img
 src="IMG_20260829_193148_592.jpg"
 alt="Sueco Negro"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -715,6 +745,7 @@ Stock: 35 (1) · 40 (2)
 <img
 src="IMG_20260829_193257_304.jpg"
 alt="Sueco Camel"
+onclick="abrirFoto(this.src)"
 >
 
 <div class="producto-info">
@@ -808,6 +839,58 @@ CALZADOS CHRISVER
 </p>
 
 </footer>
+
+
+<!-- VENTANA PARA VER FOTO -->
+
+<div
+class="modal"
+id="modalFoto"
+onclick="cerrarFoto(event)"
+>
+
+<span
+class="cerrar"
+onclick="cerrarFoto()"
+>
+&times;
+</span>
+
+<img
+id="fotoGrande"
+src=""
+alt="Producto"
+>
+
+</div>
+
+
+<script>
+
+function abrirFoto(src) {
+
+    document.getElementById("fotoGrande").src = src;
+
+    document.getElementById("modalFoto").style.display = "flex";
+
+}
+
+
+function cerrarFoto(event) {
+
+    if (
+        !event ||
+        event.target.id === "modalFoto" ||
+        event.target.className === "cerrar"
+    ) {
+
+        document.getElementById("modalFoto").style.display = "none";
+
+    }
+
+}
+
+</script>
 
 
 </body>
