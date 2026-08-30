@@ -1155,7 +1155,7 @@ async function guardarProducto() {
         const { error: errorUpload } =
             await supabaseClient
             .storage
-            .from("productos")
+            .from("Productos")
             .upload(
                 nombreArchivo,
                 fotoArchivo
@@ -1176,7 +1176,7 @@ async function guardarProducto() {
         const { data: urlData } =
             supabaseClient
             .storage
-            .from("productos")
+            .from("Productos")
             .getPublicUrl(
                 nombreArchivo
             );
