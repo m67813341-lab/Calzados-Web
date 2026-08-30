@@ -8,7 +8,6 @@
 
 <title>Calzados ChrisVer</title>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 
@@ -319,9 +318,7 @@ footer p {
 <nav>
 
 <a href="#inicio">Inicio</a>
-
 <a href="#catalogo">Catálogo</a>
-
 <a href="#contacto">Contacto</a>
 
 </nav>
@@ -403,8 +400,6 @@ CALZADOS CHRISVER
 </footer>
 
 
-<!-- VENTANA PARA FOTO GRANDE -->
-
 <div
 class="modal"
 id="modalFoto"
@@ -458,7 +453,7 @@ function cerrarFoto(event) {
 
 
 /* =========================
-   CARGAR PRODUCTOS
+   CARGAR PRODUCTOS DESDE SUPABASE
 ========================= */
 
 async function cargarProductos() {
@@ -509,9 +504,11 @@ async function cargarProductos() {
 
     data.forEach(producto => {
 
-        const talles =
-            producto.talles || {};
+        /* Talles guardados como:
+           {"39": 1}
+        */
 
+        const talles = producto.Talles || {};
 
         const listaTalles =
             Object.entries(talles);
@@ -525,7 +522,7 @@ async function cargarProductos() {
             if (Number(cantidad) > 0) {
 
                 const mensaje =
-                    `Hola, quiero consultar por el ${producto.nombre} ${producto.color}, talle ${talle}.`;
+                    `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
 
                 const whatsapp =
                     "https://wa.me/5492226622331?text=" +
@@ -556,56 +553,61 @@ async function cargarProductos() {
 
             stockTexto =
                 listaTalles
-                .filter(([talle, cantidad]) => Number(cantidad) > 0)
-                .map(([talle, cantidad]) =>
+
+                .filter(
+                    ([talle, cantidad]) =>
+                    Number(cantidad) > 0
+                )
+
+                .map(
+                    ([talle, cantidad]) =>
                     `${talle} (${cantidad})`
                 )
+
                 .join(" · ");
 
         }
 
 
         const precio =
-            Number(producto.precio).toLocaleString(
-                "es-AR"
-            );
+            Number(producto.Precio)
+            .toLocaleString("es-AR");
 
 
-        const tarjeta = document.createElement("div");
+        const tarjeta =
+            document.createElement("div");
 
-        tarjeta.className = "producto";
+
+        tarjeta.className =
+            "producto";
 
 
         tarjeta.innerHTML = `
 
             <img
-                src="${producto.foto}"
-                alt="${producto.nombre} ${producto.color}"
+                src="${producto.Foto}"
+                alt="${producto.Nombre} ${producto.Color}"
                 onclick="abrirFoto(this.src)"
             >
 
             <div class="producto-info">
 
                 <h3>
-                    ${producto.nombre}
+                    ${producto.Nombre}
                 </h3>
 
-
                 <div class="codigo">
-                    Código: ${producto.codigo}
+                    Código: ${producto.Codigo}
                 </div>
-
 
                 <div class="precio">
                     $${precio}
                 </div>
 
-
                 <div class="datos">
                     <strong>Color:</strong>
-                    ${producto.color}
+                    ${producto.Color}
                 </div>
-
 
                 <div class="talles">
 
@@ -616,7 +618,6 @@ async function cargarProductos() {
                     ${botonesTalles}
 
                 </div>
-
 
                 <div class="stock">
                     Stock: ${stockTexto || "Sin stock"}
@@ -635,13 +636,12 @@ async function cargarProductos() {
 
 
 /* =========================
-   INICIAR
+   INICIAR CATÁLOGO
 ========================= */
 
 cargarProductos();
 
 </script>
-
 
 </body>
 
