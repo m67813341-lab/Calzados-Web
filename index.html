@@ -557,7 +557,9 @@ contenedorNuevos.innerHTML =
 
 
     contenedor.innerHTML = "";
-
+    
+contenedorOfertas.innerHTML = "";
+contenedorNuevos.innerHTML = "";
 
     data.forEach(producto => {
 
@@ -658,8 +660,16 @@ contenedorNuevos.innerHTML =
                 </div>
 
                 <div class="precio">
-                    $${precio}
-                </div>
+
+    ${
+        producto.Oferta && producto.PrecioAnterior
+        ? `<span class="precio-anterior">$${Number(producto.PrecioAnterior).toLocaleString("es-AR")}</span>`
+        : ""
+    }
+
+    $${precio}
+
+</div>
 
                 <div class="datos">
                     <strong>Color:</strong>
