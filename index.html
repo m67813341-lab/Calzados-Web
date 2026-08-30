@@ -697,7 +697,15 @@ contenedorNuevos.innerHTML = "";
 
         contenedor.appendChild(tarjeta);
 
-    });
+if (producto.Oferta) {
+    contenedorOfertas.appendChild(tarjeta.cloneNode(true));
+}
+
+if (producto.Nuevo) {
+    contenedorNuevos.appendChild(tarjeta.cloneNode(true));
+}
+
+});
 
 }
 
