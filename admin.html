@@ -379,6 +379,50 @@ Precio
     id="precio"
     placeholder="Ej: 20000"
 >
+    <!-- OFERTA Y NUEVO -->
+
+<div class="opciones-extra">
+
+    <h3>Promociones</h3>
+
+    <label class="check-opcion">
+        <input
+            type="checkbox"
+            id="oferta"
+            onchange="mostrarPrecioAnterior()"
+        >
+        🔥 Este producto está en oferta
+    </label>
+
+    <div
+        id="campoPrecioAnterior"
+        class="oculto"
+    >
+
+        <label>
+            Precio anterior
+        </label>
+
+        <input
+            type="number"
+            id="precioAnterior"
+            placeholder="Ej: 30000"
+        >
+
+    </div>
+
+    <label class="check-opcion">
+
+        <input
+            type="checkbox"
+            id="nuevo"
+        >
+
+        🆕 Mostrar en Nuevo catálogo
+
+    </label>
+
+</div>
 
 
 <label>
