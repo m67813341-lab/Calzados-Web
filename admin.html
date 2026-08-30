@@ -855,7 +855,23 @@ function editarProducto(producto) {
         .getElementById("precio")
         .value =
             producto.Precio || "";
+    
+document
+    .getElementById("oferta")
+    .checked =
+        producto.Oferta || false;
 
+document
+    .getElementById("precioAnterior")
+    .value =
+        producto.PrecioAnterior || "";
+
+document
+    .getElementById("nuevo")
+    .checked =
+        producto.Nuevo || false;
+
+mostrarPrecioAnterior();
 
     tallesActuales = {};
 
