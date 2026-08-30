@@ -506,7 +506,18 @@ async function cargarProductos() {
 
     const contenedor =
         document.getElementById("listaProductos");
+    
+const contenedorOfertas =
+    document.getElementById("listaOfertas");
 
+const contenedorNuevos =
+    document.getElementById("listaNuevos");
+
+contenedorOfertas.innerHTML =
+    '<div class="cargando">Cargando ofertas...</div>';
+
+contenedorNuevos.innerHTML =
+    '<div class="cargando">Cargando novedades...</div>';
 
     const { data, error } = await supabaseClient
 
