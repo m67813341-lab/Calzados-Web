@@ -2,11 +2,10 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Administración - Calzados ChrisVer</title>
+<title>Admin - Calzados ChrisVer</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
@@ -23,7 +22,7 @@ body {
     font-family: Arial, sans-serif;
     background: #f5f5f5;
     color: #222;
-    padding: 20px;
+    padding: 15px;
 }
 
 .contenedor {
@@ -34,84 +33,121 @@ body {
 header {
     background: #111;
     color: white;
-    padding: 25px;
+    padding: 25px 15px;
     border-radius: 12px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 header h1 {
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
 
-.login,
-.panel {
+.caja {
     background: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
-}
-
-h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
 }
 
 input {
     width: 100%;
     padding: 12px;
+    margin: 6px 0 12px;
     border: 1px solid #ccc;
     border-radius: 7px;
-    margin-bottom: 12px;
     font-size: 16px;
 }
 
 button {
-    border: none;
+    border: 0;
+    border-radius: 7px;
+    padding: 11px 15px;
     background: #111;
     color: white;
-    padding: 12px 18px;
-    border-radius: 7px;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
+    margin: 4px 2px;
 }
 
 button:hover {
-    opacity: 0.85;
+    opacity: .85;
 }
 
-#mensaje {
-    margin-top: 12px;
-    color: #b00020;
+.boton-gris {
+    background: #777;
 }
 
-.producto {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 12px;
-}
-
-.producto h3 {
-    margin-bottom: 7px;
-}
-
-.producto p {
-    color: #666;
-    margin: 4px 0;
+.boton-rojo {
+    background: #b00020;
 }
 
 .oculto {
     display: none;
 }
 
-.salir {
-    background: #777;
-    margin-bottom: 20px;
+.mensaje {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.producto {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 12px;
+}
+
+.producto img {
+    width: 100%;
+    max-width: 220px;
+    height: 180px;
+    object-fit: contain;
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.producto h3 {
+    margin-bottom: 8px;
+}
+
+.producto p {
+    color: #666;
+    margin: 5px 0;
+}
+
+.formulario {
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.formulario h3 {
+    margin-bottom: 12px;
+}
+
+.titulo-boton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+input[type="file"] {
+    padding: 8px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -119,57 +155,145 @@ button:hover {
 <div class="contenedor">
 
 <header>
-
-<h1>CALZADOS CHRISVER</h1>
-
-<p>Panel de administración</p>
-
+    <h1>CALZADOS CHRISVER</h1>
+    <p>Panel de administración</p>
 </header>
 
 
 <!-- LOGIN -->
 
-<div class="login" id="login">
+<div class="caja" id="login">
 
-<h2>Iniciar sesión</h2>
+    <h2>Iniciar sesión</h2>
 
-<input
-    type="email"
-    id="email"
-    placeholder="Correo electrónico"
->
+    <input
+        type="email"
+        id="email"
+        placeholder="Correo electrónico"
+    >
 
-<input
-    type="password"
-    id="password"
-    placeholder="Contraseña"
->
+    <input
+        type="password"
+        id="password"
+        placeholder="Contraseña"
+    >
 
-<button onclick="iniciarSesion()">
-    INGRESAR
-</button>
+    <button onclick="iniciarSesion()">
+        INGRESAR
+    </button>
 
-<div id="mensaje"></div>
+    <div class="mensaje" id="mensajeLogin"></div>
 
 </div>
 
 
-<!-- PANEL -->
+<!-- ADMIN -->
 
-<div class="panel oculto" id="panel">
+<div class="oculto" id="admin">
 
-<button
-    class="salir"
-    onclick="cerrarSesion()"
->
-    CERRAR SESIÓN
-</button>
+    <div class="caja">
 
-<h2>Productos</h2>
+        <div class="titulo-boton">
 
-<div id="lista">
-    Cargando productos...
-</div>
+            <h2>Administrar productos</h2>
+
+            <button
+                class="boton-gris"
+                onclick="cerrarSesion()"
+            >
+                CERRAR SESIÓN
+            </button>
+
+        </div>
+
+        <button onclick="mostrarFormulario()">
+            ➕ AGREGAR PRODUCTO
+        </button>
+
+        <div class="mensaje" id="mensaje"></div>
+
+    </div>
+
+
+    <!-- FORMULARIO -->
+
+    <div class="caja oculto" id="formulario">
+
+        <h2 id="tituloFormulario">
+            Nuevo producto
+        </h2>
+
+        <input type="hidden" id="productoId">
+
+        <label>Nombre</label>
+        <input
+            type="text"
+            id="nombre"
+            placeholder="Ej: Guille"
+        >
+
+        <label>Código</label>
+        <input
+            type="text"
+            id="codigo"
+            placeholder="Ej: G-001"
+        >
+
+        <label>Color</label>
+        <input
+            type="text"
+            id="color"
+            placeholder="Ej: Negro"
+        >
+
+        <label>Precio</label>
+        <input
+            type="number"
+            id="precio"
+            placeholder="Ej: 20000"
+        >
+
+        <label>Talles y stock</label>
+        <input
+            type="text"
+            id="talles"
+            placeholder='Ej: {"36":1,"37":1}'
+        >
+
+        <label>Foto</label>
+        <input
+            type="file"
+            id="foto"
+            accept="image/*"
+        >
+
+        <div id="fotoActual"></div>
+
+        <button onclick="guardarProducto()">
+            💾 GUARDAR
+        </button>
+
+        <button
+            class="boton-gris"
+            onclick="cancelarFormulario()"
+        >
+            CANCELAR
+        </button>
+
+    </div>
+
+
+    <!-- LISTA -->
+
+    <div class="caja">
+
+        <h2>Productos actuales</h2>
+
+        <div id="lista">
+            Cargando...
+        </div>
+
+    </div>
 
 </div>
 
@@ -179,7 +303,7 @@ button:hover {
 <script>
 
 /* =========================
-   UID DEL ADMINISTRADOR
+   ADMINISTRADOR
 ========================= */
 
 const ADMIN_UID =
@@ -187,20 +311,19 @@ const ADMIN_UID =
 
 
 /* =========================
-   INICIAR SESIÓN
+   LOGIN
 ========================= */
 
 async function iniciarSesion() {
 
     const email =
-        document.getElementById("email").value;
+        document.getElementById("email").value.trim();
 
     const password =
         document.getElementById("password").value;
 
     const mensaje =
-        document.getElementById("mensaje");
-
+        document.getElementById("mensajeLogin");
 
     mensaje.textContent = "Ingresando...";
 
@@ -208,8 +331,8 @@ async function iniciarSesion() {
     const { data, error } =
         await supabaseClient.auth.signInWithPassword({
 
-            email: email,
-            password: password
+            email,
+            password
 
         });
 
@@ -219,10 +342,7 @@ async function iniciarSesion() {
         mensaje.textContent =
             "Correo o contraseña incorrectos.";
 
-        console.error(error);
-
         return;
-
     }
 
 
@@ -231,27 +351,22 @@ async function iniciarSesion() {
         await supabaseClient.auth.signOut();
 
         mensaje.textContent =
-            "Este usuario no tiene permisos de administrador.";
+            "Este usuario no es administrador.";
 
         return;
-
     }
 
-
-    mensaje.textContent = "";
 
     document
         .getElementById("login")
         .classList.add("oculto");
 
-
     document
-        .getElementById("panel")
+        .getElementById("admin")
         .classList.remove("oculto");
 
 
     cargarProductos();
-
 }
 
 
@@ -264,14 +379,12 @@ async function cerrarSesion() {
     await supabaseClient.auth.signOut();
 
     document
-        .getElementById("panel")
+        .getElementById("admin")
         .classList.add("oculto");
-
 
     document
         .getElementById("login")
         .classList.remove("oculto");
-
 }
 
 
@@ -284,28 +397,26 @@ async function cargarProductos() {
     const lista =
         document.getElementById("lista");
 
+    lista.innerHTML = "Cargando...";
+
 
     const { data, error } =
         await supabaseClient
-
-        .from("Productos")
-
-        .select("*")
-
-        .order("id", {
-            ascending: true
-        });
+            .from("Productos")
+            .select("*")
+            .order("id", {
+                ascending: true
+            });
 
 
     if (error) {
 
         lista.innerHTML =
-            "No se pudieron cargar los productos.";
+            "Error al cargar los productos.";
 
         console.error(error);
 
         return;
-
     }
 
 
@@ -315,7 +426,6 @@ async function cargarProductos() {
             "No hay productos.";
 
         return;
-
     }
 
 
@@ -324,51 +434,472 @@ async function cargarProductos() {
 
     data.forEach(producto => {
 
-        const talles =
-            JSON.stringify(producto.Talles);
-
-
-        const elemento =
+        const div =
             document.createElement("div");
 
-
-        elemento.className =
-            "producto";
+        div.className = "producto";
 
 
-        elemento.innerHTML = `
+        let imagen = "";
+
+        if (producto.Foto) {
+
+            imagen = `
+                <img
+                    src="${producto.Foto}"
+                    alt="${producto.Nombre || ""}"
+                >
+            `;
+        }
+
+
+        div.innerHTML = `
+
+            ${imagen}
 
             <h3>
-                ${producto.Nombre}
+                ${producto.Nombre || "Sin nombre"}
             </h3>
 
             <p>
-                Código: ${producto.Codigo}
+                Código:
+                ${producto.Codigo || "-"}
             </p>
 
             <p>
-                Color: ${producto.Color}
+                Color:
+                ${producto.Color || "-"}
             </p>
 
             <p>
-                Precio: $${producto.Precio}
+                Precio:
+                $${producto.Precio || 0}
             </p>
 
             <p>
-                Talles: ${talles}
+                Talles:
+                ${JSON.stringify(producto.Talles || {})}
             </p>
+
+            <button
+                onclick='editarProducto(${JSON.stringify(producto)})'
+            >
+                ✏️ EDITAR
+            </button>
+
+            <button
+                class="boton-rojo"
+                onclick="eliminarProducto(${producto.id})"
+            >
+                🗑️ ELIMINAR
+            </button>
 
         `;
 
 
-        lista.appendChild(elemento);
+        lista.appendChild(div);
 
     });
+}
 
+
+/* =========================
+   MOSTRAR FORMULARIO
+========================= */
+
+function mostrarFormulario() {
+
+    limpiarFormulario();
+
+    document
+        .getElementById("tituloFormulario")
+        .textContent = "Nuevo producto";
+
+    document
+        .getElementById("formulario")
+        .classList.remove("oculto");
+}
+
+
+/* =========================
+   EDITAR
+========================= */
+
+function editarProducto(producto) {
+
+    document
+        .getElementById("formulario")
+        .classList.remove("oculto");
+
+
+    document
+        .getElementById("tituloFormulario")
+        .textContent = "Editar producto";
+
+
+    document
+        .getElementById("productoId")
+        .value = producto.id;
+
+
+    document
+        .getElementById("nombre")
+        .value = producto.Nombre || "";
+
+
+    document
+        .getElementById("codigo")
+        .value = producto.Codigo || "";
+
+
+    document
+        .getElementById("color")
+        .value = producto.Color || "";
+
+
+    document
+        .getElementById("precio")
+        .value = producto.Precio || "";
+
+
+    document
+        .getElementById("talles")
+        .value =
+            JSON.stringify(producto.Talles || {});
+
+
+    const fotoActual =
+        document.getElementById("fotoActual");
+
+
+    if (producto.Foto) {
+
+        fotoActual.innerHTML = `
+            <p>Foto actual:</p>
+            <img
+                src="${producto.Foto}"
+                style="
+                    width:180px;
+                    height:150px;
+                    object-fit:contain;
+                    background:#f5f5f5;
+                    border-radius:8px;
+                "
+            >
+        `;
+
+    } else {
+
+        fotoActual.innerHTML = "";
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   GUARDAR
+========================= */
+
+async function guardarProducto() {
+
+    const id =
+        document.getElementById("productoId").value;
+
+    const nombre =
+        document.getElementById("nombre").value.trim();
+
+    const codigo =
+        document.getElementById("codigo").value.trim();
+
+    const color =
+        document.getElementById("color").value.trim();
+
+    const precio =
+        Number(document.getElementById("precio").value);
+
+    const tallesTexto =
+        document.getElementById("talles").value.trim();
+
+    const fotoArchivo =
+        document.getElementById("foto").files[0];
+
+
+    const mensaje =
+        document.getElementById("mensaje");
+
+
+    if (!nombre || !codigo || !color || !precio) {
+
+        mensaje.textContent =
+            "Completá nombre, código, color y precio.";
+
+        return;
+    }
+
+
+    /* CONVERTIR TALLES */
+
+    let talles;
+
+    try {
+
+        talles =
+            JSON.parse(tallesTexto || "{}");
+
+    } catch {
+
+        mensaje.textContent =
+            'Los talles deben tener formato como {"36":1,"37":1}';
+
+        return;
+    }
+
+
+    mensaje.textContent =
+        "Guardando...";
+
+
+    /* BUSCAR FOTO ACTUAL */
+
+    let fotoURL = null;
+
+
+    if (id) {
+
+        const { data } =
+            await supabaseClient
+                .from("Productos")
+                .select("Foto")
+                .eq("id", id)
+                .single();
+
+        if (data) {
+            fotoURL = data.Foto;
+        }
+
+    }
+
+
+    /* SUBIR NUEVA FOTO */
+
+    if (fotoArchivo) {
+
+        const nombreArchivo =
+            Date.now() + "_" +
+            fotoArchivo.name.replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+
+        const { error: errorUpload } =
+            await supabaseClient
+                .storage
+                .from("productos")
+                .upload(
+                    nombreArchivo,
+                    fotoArchivo
+                );
+
+
+        if (errorUpload) {
+
+            console.error(errorUpload);
+
+            mensaje.textContent =
+                "No se pudo subir la foto. Revisá los permisos de Storage.";
+
+            return;
+        }
+
+
+        const { data: urlData } =
+            supabaseClient
+                .storage
+                .from("productos")
+                .getPublicUrl(nombreArchivo);
+
+
+        fotoURL =
+            urlData.publicUrl;
+    }
+
+
+    /* DATOS DEL PRODUCTO */
+
+    const producto = {
+
+        Nombre: nombre,
+        Codigo: codigo,
+        Color: color,
+        Precio: precio,
+        Talles: talles,
+        Foto: fotoURL
+
+    };
+
+
+    let resultado;
+
+
+    /* EDITAR */
+
+    if (id) {
+
+        resultado =
+            await supabaseClient
+                .from("Productos")
+                .update(producto)
+                .eq("id", id);
+
+    }
+
+    /* AGREGAR */
+
+    else {
+
+        resultado =
+            await supabaseClient
+                .from("Productos")
+                .insert(producto);
+
+    }
+
+
+    if (resultado.error) {
+
+        console.error(resultado.error);
+
+        mensaje.textContent =
+            "Error al guardar el producto.";
+
+        return;
+    }
+
+
+    mensaje.textContent =
+        "Producto guardado correctamente ✅";
+
+
+    limpiarFormulario();
+
+    cargarProductos();
+}
+
+
+/* =========================
+   ELIMINAR
+========================= */
+
+async function eliminarProducto(id) {
+
+    const confirmar =
+        confirm(
+            "¿Seguro que querés eliminar este producto?"
+        );
+
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    const { error } =
+        await supabaseClient
+            .from("Productos")
+            .delete()
+            .eq("id", id);
+
+
+    if (error) {
+
+        console.error(error);
+
+        document
+            .getElementById("mensaje")
+            .textContent =
+                "No se pudo eliminar el producto.";
+
+        return;
+    }
+
+
+    document
+        .getElementById("mensaje")
+        .textContent =
+            "Producto eliminado correctamente ✅";
+
+
+    cargarProductos();
+}
+
+
+/* =========================
+   LIMPIAR
+========================= */
+
+function limpiarFormulario() {
+
+    document
+        .getElementById("productoId")
+        .value = "";
+
+
+    document
+        .getElementById("nombre")
+        .value = "";
+
+
+    document
+        .getElementById("codigo")
+        .value = "";
+
+
+    document
+        .getElementById("color")
+        .value = "";
+
+
+    document
+        .getElementById("precio")
+        .value = "";
+
+
+    document
+        .getElementById("talles")
+        .value = "";
+
+
+    document
+        .getElementById("foto")
+        .value = "";
+
+
+    document
+        .getElementById("fotoActual")
+        .innerHTML = "";
+}
+
+
+/* =========================
+   CANCELAR
+========================= */
+
+function cancelarFormulario() {
+
+    document
+        .getElementById("formulario")
+        .classList.add("oculto");
+
+    limpiarFormulario();
 }
 
 </script>
 
 </body>
-
 </html>
