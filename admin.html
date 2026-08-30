@@ -1724,7 +1724,20 @@ function limpiarFormulario() {
     document
         .getElementById("precio")
         .value = "";
+    
+document
+    .getElementById("oferta")
+    .checked = false;
 
+document
+    .getElementById("precioAnterior")
+    .value = "";
+
+document
+    .getElementById("nuevo")
+    .checked = false;
+
+mostrarPrecioAnterior();
 
     document
         .getElementById("foto")
