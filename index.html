@@ -466,5 +466,32 @@ async function probarSupabase() {
 
 probarSupabase();
 
-</script></body>
+<script>
+    function abrirFoto(src) {
+        // ...
+    }
+
+    function cerrarFoto(event) {
+        // ...
+    }
+</script>
+
+<script>
+async function probarSupabase() {
+    const { data, error } = await supabaseClient
+        .from("Productos")
+        .select("*");
+
+    if (error) {
+        console.error("Error de Supabase:", error);
+        return;
+    }
+
+    console.log("Productos encontrados:", data);
+}
+
+probarSupabase();
+</script>
+
+</body>
 </html>
