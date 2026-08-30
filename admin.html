@@ -1331,7 +1331,23 @@ async function guardarProducto() {
             .getElementById("precio")
             .value
         );
+    
+const oferta =
+    document
+    .getElementById("oferta")
+    .checked;
 
+const precioAnterior =
+    Number(
+        document
+        .getElementById("precioAnterior")
+        .value
+    ) || null;
+
+const nuevo =
+    document
+    .getElementById("nuevo")
+    .checked;
 
     const fotoArchivo =
         document
