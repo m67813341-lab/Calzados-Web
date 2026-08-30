@@ -1,6 +1,8 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calzados ChrisVer</title><!-- Supabase --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><style>
-
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calzados ChrisVer</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><style>
 * {
     box-sizing: border-box;
     margin: 0;
@@ -111,7 +113,8 @@ nav a {
 .producto img {
     width: 100%;
     height: 230px;
-    object-fit: cover;
+    object-fit: contain;
+    background: #f5f5f5;
     cursor: pointer;
     display: block;
 }
@@ -177,8 +180,6 @@ nav a {
     font-size: 13px;
     color: #555;
 }
-
-/* FOTO GRANDE */
 
 .modal {
     display: none;
@@ -249,7 +250,6 @@ footer p {
 }
 
 @media (max-width: 500px) {
-
     .hero h2 {
         font-size: 28px;
     }
@@ -274,275 +274,179 @@ footer p {
     .precio {
         font-size: 18px;
     }
-
 }
-
-</style></head><body><header><h1>CALZADOS CHRISVER</h1><p>Zapatos • Sandalias • Botas</p></header><nav><a href="#inicio">Inicio</a>
+</style></head><body><header>
+<h1>CALZADOS CHRISVER</h1>
+<p>Zapatos • Sandalias • Botas</p>
+</header><nav>
+<a href="#inicio">Inicio</a>
 <a href="#catalogo">Catálogo</a>
 <a href="#contacto">Contacto</a>
-
-</nav><section class="hero" id="inicio"><h2>Encontrá tu próximo par 👟</h2><p>Descubrí nuestros modelos disponibles.</p><a href="#catalogo" class="boton">
-VER CATÁLOGO
-</a></section><section class="catalogo" id="catalogo"><div class="titulo"><h2>Nuestro catálogo</h2><p>Consultá talles, colores y disponibilidad.</p></div><div class="productos"><!-- GUILLE --><div class="producto"><img
-src="IMG_20260829_184043_243.jpg"
-alt="Guille negro"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Guille</h3><div class="codigo">
-Código: G-001
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Negro
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2036." target="_blank">36</a>
-
+</nav><section class="hero" id="inicio">
+<h2>Encontrá tu próximo par 👟</h2>
+<p>Descubrí nuestros modelos disponibles.</p>
+<a href="#catalogo" class="boton">VER CATÁLOGO</a>
+</section><section class="catalogo" id="catalogo"><div class="titulo">
+<h2>Nuestro catálogo</h2>
+<p>Consultá talles, colores y disponibilidad.</p>
+</div><div class="productos"><!-- GUILLE --><div class="producto">
+<img src="IMG_20260829_184043_243.jpg" alt="Guille negro" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Guille</h3>
+<div class="codigo">Código: G-001</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Negro</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2036." target="_blank">36</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Guille%20negro%2C%20talle%2037." target="_blank">37</a>
-
-</div><div class="stock">
-Stock: 36 (1) · 37 (1)
-</div></div></div><!-- CARIBE CHAMPAGNE --><div class="producto"><img
-src="IMG_20260829_192017_173.jpg"
-alt="Caribe Champagne"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Caribe</h3><div class="codigo">
-Código: C-001
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Champagne
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20Champagne%2C%20talle%2039." target="_blank">39</a>
-
-</div><div class="stock">
-Stock: 39 (1)
-</div></div></div><!-- BIKER VERDE --><div class="producto"><img
-src="IMG_20260829_192225_225.jpg"
-alt="Biker Verde"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Biker</h3><div class="codigo">
-Código: B-001
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Verde
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2035." target="_blank">35</a>
-
+</div>
+<div class="stock">Stock: 36 (1) · 37 (1)</div>
+</div>
+</div><!-- CARIBE CHAMPAGNE --><div class="producto">
+<img src="IMG_20260829_192017_173.jpg" alt="Caribe Champagne" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Caribe</h3>
+<div class="codigo">Código: C-001</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Champagne</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20Champagne%2C%20talle%2039." target="_blank">39</a>
+</div>
+<div class="stock">Stock: 39 (1)</div>
+</div>
+</div><!-- BIKER VERDE --><div class="producto">
+<img src="IMG_20260829_192225_225.jpg" alt="Biker Verde" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Biker</h3>
+<div class="codigo">Código: B-001</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Verde</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2035." target="_blank">35</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2036." target="_blank">36</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2037." target="_blank">37</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2038." target="_blank">38</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20verde%2C%20talle%2040." target="_blank">40</a>
-
-</div><div class="stock">
-Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 40 (1)
-</div></div></div><!-- BIKER ROSA --><div class="producto"><img
-src="IMG_20260829_192502_690.jpg"
-alt="Biker Rosa"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Biker</h3><div class="codigo">
-Código: B-002
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Rosa
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2037." target="_blank">37</a>
-
+</div>
+<div class="stock">Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 40 (1)</div>
+</div>
+</div><!-- BIKER ROSA --><div class="producto">
+<img src="IMG_20260829_192502_690.jpg" alt="Biker Rosa" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Biker</h3>
+<div class="codigo">Código: B-002</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Rosa</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2037." target="_blank">37</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2038." target="_blank">38</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Biker%20rosa%2C%20talle%2039." target="_blank">39</a>
-
-</div><div class="stock">
-Stock: 37 (1) · 38 (2) · 39 (1)
-</div></div></div><!-- CARIBE MOSTAZA --><div class="producto"><img
-src="IMG_20260829_192739_311.jpg"
-alt="Caribe Mostaza"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Caribe</h3><div class="codigo">
-Código: C-002
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Mostaza
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2035." target="_blank">35</a>
-
+</div>
+<div class="stock">Stock: 37 (1) · 38 (2) · 39 (1)</div>
+</div>
+</div><!-- CARIBE MOSTAZA --><div class="producto">
+<img src="IMG_20260829_192739_311.jpg" alt="Caribe Mostaza" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Caribe</h3>
+<div class="codigo">Código: C-002</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Mostaza</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2035." target="_blank">35</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2036." target="_blank">36</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2037." target="_blank">37</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2038." target="_blank">38</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Caribe%20mostaza%2C%20talle%2039." target="_blank">39</a>
-
-</div><div class="stock">
-Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 39 (2)
-</div></div></div><!-- SANDALIA ALTA ORO --><div class="producto"><img
-src="IMG_20260829_192904_311.jpg"
-alt="Sandalia alta Oro"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Sandalia alta</h3><div class="codigo">
-Código: SA-001
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Oro
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2037." target="_blank">37</a>
-
+</div>
+<div class="stock">Stock: 35 (1) · 36 (1) · 37 (1) · 38 (1) · 39 (2)</div>
+</div>
+</div><!-- SANDALIA ALTA ORO --><div class="producto">
+<img src="IMG_20260829_192904_311.jpg" alt="Sandalia alta Oro" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Sandalia alta</h3>
+<div class="codigo">Código: SA-001</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Oro</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2037." target="_blank">37</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2039." target="_blank">39</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20oro%2C%20talle%2040." target="_blank">40</a>
-
-</div><div class="stock">
-Stock: 37 (1) · 39 (1) · 40 (1)
-</div></div></div><!-- SANDALIA ALTA PLATA --><div class="producto"><img
-src="IMG_20260829_193017_381.jpg"
-alt="Sandalia alta Plata"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Sandalia alta</h3><div class="codigo">
-Código: SA-002
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Plata
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2035." target="_blank">35</a>
-
+</div>
+<div class="stock">Stock: 37 (1) · 39 (1) · 40 (1)</div>
+</div>
+</div><!-- SANDALIA ALTA PLATA --><div class="producto">
+<img src="IMG_20260829_193017_381.jpg" alt="Sandalia alta Plata" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Sandalia alta</h3>
+<div class="codigo">Código: SA-002</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Plata</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2035." target="_blank">35</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2036." target="_blank">36</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2037." target="_blank">37</a>
-
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20la%20Sandalia%20alta%20plata%2C%20talle%2039." target="_blank">39</a>
-
-</div><div class="stock">
-Stock: 35 (1) · 36 (1) · 37 (1) · 39 (1)
-</div></div></div><!-- SUECO NEGRO --><div class="producto"><img
-src="IMG_20260829_193148_592.jpg"
-alt="Sueco Negro"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Sueco</h3><div class="codigo">
-Código: S-001
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Negro
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20negro%2C%20talle%2035." target="_blank">35</a>
-
+</div>
+<div class="stock">Stock: 35 (1) · 36 (1) · 37 (1) · 39 (1)</div>
+</div>
+</div><!-- SUECO NEGRO --><div class="producto">
+<img src="IMG_20260829_193148_592.jpg" alt="Sueco Negro" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Sueco</h3>
+<div class="codigo">Código: S-001</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Negro</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20negro%2C%20talle%2035." target="_blank">35</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20negro%2C%20talle%2040." target="_blank">40</a>
-
-</div><div class="stock">
-Stock: 35 (1) · 40 (2)
-</div></div></div><!-- SUECO CAMEL --><div class="producto"><img
-src="IMG_20260829_193257_304.jpg"
-alt="Sueco Camel"
-onclick="abrirFoto(this.src)"
-
-«»
-
-<div class="producto-info"><h3>Sueco</h3><div class="codigo">
-Código: S-002
-</div><div class="precio">
-$20.000
-</div><div class="datos">
-<strong>Color:</strong> Camel
-</div><div class="talles"><p>Elegí tu talle:</p><a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20camel%2C%20talle%2035." target="_blank">35</a>
-
+</div>
+<div class="stock">Stock: 35 (1) · 40 (2)</div>
+</div>
+</div><!-- SUECO CAMEL --><div class="producto">
+<img src="IMG_20260829_193257_304.jpg" alt="Sueco Camel" onclick="abrirFoto(this.src)">
+<div class="producto-info">
+<h3>Sueco</h3>
+<div class="codigo">Código: S-002</div>
+<div class="precio">$20.000</div>
+<div class="datos"><strong>Color:</strong> Camel</div>
+<div class="talles">
+<p>Elegí tu talle:</p>
+<a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20camel%2C%20talle%2035." target="_blank">35</a>
 <a class="talle" href="https://wa.me/5492226622331?text=Hola%2C%20quiero%20consultar%20por%20el%20Sueco%20camel%2C%20talle%2036." target="_blank">36</a>
-
-</div><div class="stock">
-Stock: 35 (1) · 36 (1)
-</div></div></div></div></section><section class="contacto" id="contacto"><h2>
-¿Te interesa algún producto?
-</h2><p>
-Consultanos por disponibilidad, talles y colores.
-</p><a
-href="https://wa.me/5492226622331"
-class="boton"
-target="_blank"
-
-«»
-
+</div>
+<div class="stock">Stock: 35 (1) · 36 (1)</div>
+</div>
+</div></div>
+</section><section class="contacto" id="contacto"><h2>¿Te interesa algún producto?</h2><p>Consultanos por disponibilidad, talles y colores.</p><a href="https://wa.me/5492226622331" class="boton" target="_blank">
 💬 WHATSAPP
-</a>
-
-<br><a
-href="#"
-class="instagram"
-
-«»
-
+</a><br><a href="#" class="instagram">
 📸 Instagram
-</a>
-
-</section><footer><h3>
-CALZADOS CHRISVER
-</h3><p>
-© 2026 Calzados ChrisVer
-</p></footer><!-- VENTANA PARA FOTO GRANDE --><div
-class="modal"
-id="modalFoto"
-onclick="cerrarFoto(event)"
-><span
-class="cerrar"
-onclick="cerrarFoto(event)"
-
-«»
-
-×
-</span>
-
-<img
-id="fotoGrande"
-src=""
-alt="Producto"
-
-«»
-
-</div><script>
+</a></section><footer><h3>CALZADOS CHRISVER</h3><p>© 2026 Calzados ChrisVer</p></footer><div class="modal" id="modalFoto" onclick="cerrarFoto(event)"><span class="cerrar" onclick="cerrarFoto(event)">
+&times;
+</span><img id="fotoGrande" src="" alt="Producto"></div><script>
 
 function abrirFoto(src) {
-
     document.getElementById("fotoGrande").src = src;
-
     document.getElementById("modalFoto").style.display = "flex";
-
 }
 
 function cerrarFoto(event) {
-
     if (
         !event ||
         event.target.id === "modalFoto" ||
         event.target.className === "cerrar"
     ) {
-
         document.getElementById("modalFoto").style.display = "none";
-
     }
-
 }
-
 
 /* PRUEBA DE CONEXIÓN CON SUPABASE */
 
@@ -553,20 +457,14 @@ async function probarSupabase() {
         .select("*");
 
     if (error) {
-
         console.error("Error de Supabase:", error);
-
         return;
-
     }
 
-    console.log(
-        "Productos encontrados en Supabase:",
-        data
-    );
-
+    console.log("Productos encontrados en Supabase:", data);
 }
 
 probarSupabase();
 
-</script></body></html>
+</script></body>
+</html>
