@@ -548,7 +548,35 @@ const TALLES_DISPONIBLES = [
 
 let tallesActuales = {};
 
+/* =========================
+   MOSTRAR PRECIO ANTERIOR
+========================= */
 
+function mostrarPrecioAnterior() {
+
+    const oferta =
+        document
+        .getElementById("oferta")
+        .checked;
+
+    const campo =
+        document
+        .getElementById("campoPrecioAnterior");
+
+    if (oferta) {
+
+        campo.classList.remove("oculto");
+
+    } else {
+
+        campo.classList.add("oculto");
+
+        document
+        .getElementById("precioAnterior")
+        .value = "";
+
+    }
+}
 /* =========================
    LOGIN
 ========================= */
