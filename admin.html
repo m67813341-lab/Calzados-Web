@@ -993,9 +993,13 @@ function agregarTalle() {
     }
 
 
+    const talleLimpio =
+        talle.trim();
+
+
     if (
         !TALLES_DISPONIBLES
-        .includes(talle.trim())
+        .includes(talleLimpio)
     ) {
 
         alert(
@@ -1012,7 +1016,7 @@ function agregarTalle() {
         .hasOwnProperty
         .call(
             tallesActuales,
-            talle.trim()
+            talleLimpio
         )
     ) {
 
@@ -1025,7 +1029,7 @@ function agregarTalle() {
 
 
     tallesActuales[
-        talle.trim()
+        talleLimpio
     ] = 0;
 
 
@@ -1042,6 +1046,183 @@ function quitarTalle(talle) {
     delete tallesActuales[talle];
 
     renderizarTalles();
+}
+
+
+/* =====================================================
+   COMPRESIÓN DE IMÁGENES
+===================================================== */
+
+function comprimirImagen(
+    archivo,
+    maxAncho = 1600,
+    maxAlto = 1600,
+    calidad = 0.80
+) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const lector =
+                new FileReader();
+
+
+            lector.onload = function(event) {
+
+                const imagen =
+                    new Image();
+
+
+                imagen.onload =
+                    function() {
+
+                        let ancho =
+                            imagen.width;
+
+                        let alto =
+                            imagen.height;
+
+
+                        /* Mantener proporción */
+
+                        if (
+                            ancho > maxAncho ||
+                            alto > maxAlto
+                        ) {
+
+                            const proporcion =
+                                Math.min(
+                                    maxAncho / ancho,
+                                    maxAlto / alto
+                                );
+
+
+                            ancho =
+                                Math.round(
+                                    ancho * proporcion
+                                );
+
+
+                            alto =
+                                Math.round(
+                                    alto * proporcion
+                                );
+                        }
+
+
+                        const canvas =
+                            document.createElement(
+                                "canvas"
+                            );
+
+
+                        canvas.width =
+                            ancho;
+
+                        canvas.height =
+                            alto;
+
+
+                        const ctx =
+                            canvas.getContext(
+                                "2d"
+                            );
+
+
+                        ctx.drawImage(
+                            imagen,
+                            0,
+                            0,
+                            ancho,
+                            alto
+                        );
+
+
+                        canvas.toBlob(
+                            function(blob) {
+
+                                if (!blob) {
+
+                                    reject(
+                                        new Error(
+                                            "No se pudo comprimir la imagen."
+                                        )
+                                    );
+
+                                    return;
+                                }
+
+
+                                /* Crear archivo nuevo */
+
+                                const nombre =
+                                    archivo.name
+                                    .replace(
+                                        /\.[^/.]+$/,
+                                        ""
+                                    )
+                                    + ".jpg";
+
+
+                                const archivoComprimido =
+                                    new File(
+                                        [blob],
+                                        nombre,
+                                        {
+                                            type:
+                                                "image/jpeg"
+                                        }
+                                    );
+
+
+                                resolve(
+                                    archivoComprimido
+                                );
+
+                            },
+                            "image/jpeg",
+                            calidad
+                        );
+
+                    };
+
+
+                imagen.onerror =
+                    function() {
+
+                        reject(
+                            new Error(
+                                "No se pudo leer la imagen."
+                            )
+                        );
+
+                    };
+
+
+                imagen.src =
+                    event.target.result;
+
+            };
+
+
+            lector.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "No se pudo leer el archivo."
+                        )
+                    );
+
+                };
+
+
+            lector.readAsDataURL(
+                archivo
+            );
+
+        }
+    );
 }
 
 
@@ -1115,19 +1296,28 @@ async function guardarProducto() {
         "Guardando...";
 
 
-    /* FOTO ACTUAL */
+    /* =========================
+       FOTO ACTUAL
+    ========================= */
 
     let fotoURL = null;
 
 
     if (id) {
 
-        const { data } =
+        const { data, error } =
             await supabaseClient
             .from("Productos")
             .select("Foto")
             .eq("id", id)
             .single();
+
+
+        if (error) {
+
+            console.error(error);
+
+        }
 
 
         if (data) {
@@ -1139,55 +1329,106 @@ async function guardarProducto() {
     }
 
 
-    /* SUBIR FOTO NUEVA */
+    /* =========================
+       SUBIR FOTO NUEVA
+    ========================= */
 
     if (fotoArchivo) {
 
-        const nombreArchivo =
-            Date.now() +
-            "_" +
-            fotoArchivo.name.replace(
-                /[^a-zA-Z0-9._-]/g,
-                "_"
-            );
-
-
-        const { error: errorUpload } =
-            await supabaseClient
-            .storage
-            .from("Productos")
-            .upload(
-                nombreArchivo,
-                fotoArchivo
-            );
-
-
-        if (errorUpload) {
-
-            console.error(errorUpload);
+        try {
 
             mensaje.textContent =
-                "No se pudo subir la foto.";
+                "Comprimiendo foto...";
+
+
+            /*
+             * Comprimir antes de subir.
+             * Máximo 1600x1600.
+             * Calidad JPEG 80%.
+             */
+
+            const fotoComprimida =
+                await comprimirImagen(
+                    fotoArchivo,
+                    1600,
+                    1600,
+                    0.80
+                );
+
+
+            mensaje.textContent =
+                "Subiendo foto...";
+
+
+            const nombreArchivo =
+                Date.now() +
+                "_" +
+                fotoComprimida.name
+                .replace(
+                    /[^a-zA-Z0-9._-]/g,
+                    "_"
+                );
+
+
+            const {
+                error: errorUpload
+            } =
+                await supabaseClient
+                .storage
+                .from("Productos")
+                .upload(
+                    nombreArchivo,
+                    fotoComprimida,
+                    {
+                        contentType:
+                            "image/jpeg",
+                        upsert: false
+                    }
+                );
+
+
+            if (errorUpload) {
+
+                console.error(
+                    errorUpload
+                );
+
+                mensaje.textContent =
+                    "No se pudo subir la foto.";
+
+                return;
+            }
+
+
+            const { data: urlData } =
+                supabaseClient
+                .storage
+                .from("Productos")
+                .getPublicUrl(
+                    nombreArchivo
+                );
+
+
+            fotoURL =
+                urlData.publicUrl;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            mensaje.textContent =
+                "No se pudo procesar la foto.";
 
             return;
         }
 
-
-        const { data: urlData } =
-            supabaseClient
-            .storage
-            .from("Productos")
-            .getPublicUrl(
-                nombreArchivo
-            );
-
-
-        fotoURL =
-            urlData.publicUrl;
     }
 
 
-    /* DATOS */
+    /* =========================
+       DATOS DEL PRODUCTO
+    ========================= */
 
     const producto = {
 
@@ -1209,7 +1450,9 @@ async function guardarProducto() {
     let resultado;
 
 
-    /* EDITAR */
+    /* =========================
+       EDITAR
+    ========================= */
 
     if (id) {
 
@@ -1222,7 +1465,9 @@ async function guardarProducto() {
     }
 
 
-    /* AGREGAR */
+    /* =========================
+       AGREGAR
+    ========================= */
 
     else {
 
@@ -1367,7 +1612,9 @@ function cancelarFormulario() {
     limpiarFormulario();
 }
 
+
 </script>
 
 </body>
+
 </html>
