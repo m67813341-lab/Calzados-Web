@@ -149,11 +149,54 @@ nav a {
     margin-bottom: 5px;
 }
 
+.precio-unitario {
+    color: #777;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
 .item-precio {
     font-size: 18px;
     font-weight: bold;
-    margin-top: 8px;
+    margin-top: 6px;
 }
+
+/* =========================
+   CANTIDAD
+========================= */
+
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.cantidad-control button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #111;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cantidad-control button:hover {
+    opacity: 0.8;
+}
+
+.cantidad-numero {
+    min-width: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* =========================
+   ELIMINAR
+========================= */
 
 .eliminar {
     border: none;
@@ -280,11 +323,16 @@ footer p {
 
     .item-carrito {
         align-items: flex-start;
+        flex-wrap: wrap;
     }
 
     .item-carrito img {
         width: 80px;
         height: 80px;
+    }
+
+    .item-info {
+        min-width: 0;
     }
 
     .item-info h3 {
@@ -293,6 +341,14 @@ footer p {
 
     .item-precio {
         font-size: 16px;
+    }
+
+    .cantidad-control {
+        margin-top: 8px;
+    }
+
+    .eliminar {
+        margin-left: auto;
     }
 
 }
@@ -369,7 +425,6 @@ Revisá tus productos antes de realizar la consulta.
 
 
 <div id="listaCarrito">
-
 </div>
 
 
@@ -436,6 +491,20 @@ function obtenerCarrito() {
 
 
 /* =========================
+   GUARDAR CARRITO
+========================= */
+
+function guardarCarrito(carrito) {
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+}
+
+
+/* =========================
    MOSTRAR CARRITO
 ========================= */
 
@@ -463,9 +532,31 @@ function mostrarCarrito() {
         );
 
 
-    cantidad.textContent =
-        carrito.length;
+    /* =========================
+       CONTADOR TOTAL DE UNIDADES
+    ========================= */
 
+    const cantidadTotal =
+        carrito.reduce(
+            (total, producto) => {
+
+                return total +
+                    Number(
+                        producto.cantidad || 1
+                    );
+
+            },
+            0
+        );
+
+
+    cantidad.textContent =
+        cantidadTotal;
+
+
+    /* =========================
+       CARRITO VACÍO
+    ========================= */
 
     if (carrito.length === 0) {
 
@@ -508,11 +599,31 @@ function mostrarCarrito() {
     let total = 0;
 
 
+    /* =========================
+       MOSTRAR PRODUCTOS
+    ========================= */
+
     carrito.forEach(
         (producto, index) => {
 
-            total +=
-                Number(producto.precio);
+            const precio =
+                Number(
+                    producto.precio || 0
+                );
+
+
+            const cantidadProducto =
+                Number(
+                    producto.cantidad || 1
+                );
+
+
+            const subtotal =
+                precio *
+                cantidadProducto;
+
+
+            total += subtotal;
 
 
             const item =
@@ -541,14 +652,47 @@ function mostrarCarrito() {
 
                     <p>
                         Color:
-                        ${producto.color}
+                        ${producto.color || "No especificado"}
                     </p>
+
+                    <p>
+                        Talle:
+                        ${producto.talle || "No especificado"}
+                    </p>
+
+                    <div class="precio-unitario">
+
+                        Precio por unidad:
+                        $${precio.toLocaleString("es-AR")}
+
+                    </div>
+
+
+                    <div class="cantidad-control">
+
+                        <button
+                            onclick="cambiarCantidad(${index}, -1)"
+                        >
+                            −
+                        </button>
+
+                        <span class="cantidad-numero">
+                            ${cantidadProducto}
+                        </span>
+
+                        <button
+                            onclick="cambiarCantidad(${index}, 1)"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
 
                     <div class="item-precio">
 
-                        $${Number(
-                            producto.precio
-                        ).toLocaleString("es-AR")}
+                        Subtotal:
+                        $${subtotal.toLocaleString("es-AR")}
 
                     </div>
 
@@ -573,6 +717,10 @@ function mostrarCarrito() {
     );
 
 
+    /* =========================
+       MOSTRAR TOTAL
+    ========================= */
+
     document.getElementById(
         "totalCarrito"
     ).textContent =
@@ -583,6 +731,59 @@ function mostrarCarrito() {
 
     resumen.style.display =
         "block";
+
+}
+
+
+/* =========================
+   CAMBIAR CANTIDAD
+========================= */
+
+function cambiarCantidad(index, cambio) {
+
+    const carrito =
+        obtenerCarrito();
+
+
+    const producto =
+        carrito[index];
+
+
+    if (!producto) {
+        return;
+    }
+
+
+    const cantidadActual =
+        Number(
+            producto.cantidad || 1
+        );
+
+
+    const nuevaCantidad =
+        cantidadActual +
+        cambio;
+
+
+    /* =========================
+       NO MENOS DE 1
+    ========================= */
+
+    if (nuevaCantidad < 1) {
+        return;
+    }
+
+
+    producto.cantidad =
+        nuevaCantidad;
+
+
+    guardarCarrito(
+        carrito
+    );
+
+
+    mostrarCarrito();
 
 }
 
@@ -603,9 +804,8 @@ function eliminarProducto(index) {
     );
 
 
-    localStorage.setItem(
-        "carrito",
-        JSON.stringify(carrito)
+    guardarCarrito(
+        carrito
     );
 
 
@@ -651,31 +851,63 @@ function enviarWhatsApp() {
         "Hola, quiero consultar por este pedido:%0A%0A";
 
 
+    let total =
+        0;
+
+
     carrito.forEach(
         (producto, index) => {
 
-            mensaje +=
-                `${index + 1}. ${producto.nombre} - Color: ${producto.color} - $${Number(producto.precio).toLocaleString("es-AR")}%0A`;
-
-        }
-    );
-
-
-    let total = 0;
+            const precio =
+                Number(
+                    producto.precio || 0
+                );
 
 
-    carrito.forEach(
-        producto => {
+            const cantidad =
+                Number(
+                    producto.cantidad || 1
+                );
+
+
+            const subtotal =
+                precio *
+                cantidad;
+
 
             total +=
-                Number(producto.precio);
+                subtotal;
+
+
+            mensaje +=
+                `${index + 1}. ${producto.nombre}%0A`;
+
+
+            mensaje +=
+                `Color: ${producto.color || "No especificado"}%0A`;
+
+
+            mensaje +=
+                `Talle: ${producto.talle || "No especificado"}%0A`;
+
+
+            mensaje +=
+                `Cantidad: ${cantidad}%0A`;
+
+
+            mensaje +=
+                `Precio unitario: $${precio.toLocaleString("es-AR")}%0A`;
+
+
+            mensaje +=
+                `Subtotal: $${subtotal.toLocaleString("es-AR")}%0A%0A`;
 
         }
     );
 
 
     mensaje +=
-        `%0ATotal: $${total.toLocaleString("es-AR")}`;
+        `Total: $${total.toLocaleString("es-AR")}`;
 
 
     const whatsapp =
@@ -698,6 +930,12 @@ function enviarWhatsApp() {
 mostrarCarrito();
 
 </script>
+
+
+<!-- =========================
+     WHATSAPP FLOTANTE
+========================= -->
+
 <a
     href="https://wa.me/5491140615513"
     class="whatsapp-flotante"
@@ -706,7 +944,9 @@ mostrarCarrito();
     💬
 </a>
 
+
 <style>
+
 .whatsapp-flotante {
     position: fixed;
     right: 20px;
@@ -728,7 +968,9 @@ mostrarCarrito();
 .whatsapp-flotante:hover {
     transform: scale(1.08);
 }
+
 </style>
+
 </body>
 
 </html>
