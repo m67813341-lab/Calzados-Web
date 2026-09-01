@@ -149,6 +149,10 @@ nav a {
     font-size: 16px;
 }
 
+/* =========================
+   TALLES
+========================= */
+
 .talles {
     margin-top: 25px;
 }
@@ -157,20 +161,62 @@ nav a {
     margin-bottom: 12px;
 }
 
-.talle {
-    display: inline-block;
-    background: #111;
-    color: white;
-    text-decoration: none;
-    padding: 10px 14px;
-    border-radius: 7px;
-    margin: 4px;
-    font-weight: bold;
+.selector-talle {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    margin-top: 5px;
+    cursor: pointer;
 }
 
-.talle:hover {
+/* =========================
+   CANTIDAD
+========================= */
+
+.cantidad {
+    margin-top: 20px;
+}
+
+.cantidad h3 {
+    margin-bottom: 10px;
+}
+
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cantidad-control button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #111;
+    color: white;
+    border-radius: 7px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cantidad-control button:hover {
     opacity: 0.8;
 }
+
+.cantidad-control input {
+    width: 60px;
+    height: 42px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+/* =========================
+   STOCK
+========================= */
 
 .stock {
     margin-top: 20px;
@@ -264,6 +310,32 @@ footer {
 footer p {
     color: #aaa;
     margin-top: 15px;
+}
+
+/* =========================
+   WHATSAPP FLOTANTE
+========================= */
+
+.whatsapp-flotante {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 58px;
+    height: 58px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 9999;
+}
+
+.whatsapp-flotante:hover {
+    transform: scale(1.08);
 }
 
 /* =========================
@@ -413,16 +485,13 @@ function actualizarCantidadCarrito() {
     const carrito =
         obtenerCarrito();
 
-
     const cantidad =
         carrito.length;
-
 
     const elemento =
         document.getElementById(
             "cantidadCarrito"
         );
-
 
     if (elemento) {
 
@@ -447,23 +516,95 @@ function agregarAlCarrito() {
     }
 
 
+    const talleSeleccionado =
+        document.getElementById(
+            "talleSeleccionado"
+        ).value;
+
+
+    const cantidadSeleccionada =
+        Number(
+            document.getElementById(
+                "cantidadSeleccionada"
+            ).value
+        );
+
+
+    if (!talleSeleccionado) {
+
+        alert(
+            "📏 Elegí un talle."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !cantidadSeleccionada ||
+        cantidadSeleccionada < 1
+    ) {
+
+        alert(
+            "Elegí una cantidad válida."
+        );
+
+        return;
+
+    }
+
+
+    const stockDisponible =
+        Number(
+            productoActual.Talles[
+                talleSeleccionado
+            ]
+        );
+
+
+    if (
+        cantidadSeleccionada >
+        stockDisponible
+    ) {
+
+        alert(
+            `⚠️ Solo hay ${stockDisponible} unidad(es) disponibles de ese talle.`
+        );
+
+        return;
+
+    }
+
+
     const carrito =
         obtenerCarrito();
 
 
     const productoCarrito = {
 
-        id: productoActual.id,
+        id:
+            productoActual.id,
 
-        nombre: productoActual.Nombre,
+        nombre:
+            productoActual.Nombre,
 
-        color: productoActual.Color,
+        color:
+            productoActual.Color,
 
-        precio: Number(
-            productoActual.Precio
-        ),
+        precio:
+            Number(
+                productoActual.Precio
+            ),
 
-        foto: productoActual.Foto
+        foto:
+            productoActual.Foto,
+
+        talle:
+            talleSeleccionado,
+
+        cantidad:
+            cantidadSeleccionada
 
     };
 
@@ -485,6 +626,40 @@ function agregarAlCarrito() {
     alert(
         "🛒 Producto agregado al carrito"
     );
+
+}
+
+
+/* =========================
+   CAMBIAR CANTIDAD
+========================= */
+
+function cambiarCantidad(valor) {
+
+    const input =
+        document.getElementById(
+            "cantidadSeleccionada"
+        );
+
+
+    let cantidad =
+        Number(
+            input.value
+        ) || 1;
+
+
+    cantidad += valor;
+
+
+    if (cantidad < 1) {
+
+        cantidad = 1;
+
+    }
+
+
+    input.value =
+        cantidad;
 
 }
 
@@ -585,34 +760,24 @@ async function cargarProducto() {
         Object.entries(talles);
 
 
-    let botonesTalles = "";
+    let opcionesTalles =
+        "";
 
 
     listaTalles.forEach(
         ([talle, cantidad]) => {
 
-            if (Number(cantidad) > 0) {
+            if (
+                Number(cantidad) > 0
+            ) {
 
-                const mensaje =
-                    `Hola, quiero consultar por el ${productoActual.Nombre} ${productoActual.Color}, talle ${talle}.`;
+                opcionesTalles += `
 
-
-                const whatsapp =
-                    "https://wa.me/5492226622331?text=" +
-                    encodeURIComponent(
-                        mensaje
-                    );
-
-
-                botonesTalles += `
-
-                    <a
-                        href="${whatsapp}"
-                        target="_blank"
-                        class="talle"
+                    <option
+                        value="${talle}"
                     >
-                        Talle ${talle}
-                    </a>
+                        Talle ${talle} — ${cantidad} disponible(s)
+                    </option>
 
                 `;
 
@@ -651,7 +816,9 @@ async function cargarProducto() {
         Number(
             productoActual.Precio
         )
-        .toLocaleString("es-AR");
+        .toLocaleString(
+            "es-AR"
+        );
 
 
     const precioAnterior =
@@ -664,7 +831,9 @@ async function cargarProducto() {
         `<span class="precio-anterior">
             $${Number(
                 productoActual.PrecioAnterior
-            ).toLocaleString("es-AR")}
+            ).toLocaleString(
+                "es-AR"
+            )}
         </span>`
 
         :
@@ -731,10 +900,67 @@ async function cargarProducto() {
             <div class="talles">
 
                 <h3>
-                    Talles disponibles
+                    Elegí tu talle
                 </h3>
 
-                ${botonesTalles || "Sin talles disponibles"}
+
+                <select
+                    id="talleSeleccionado"
+                    class="selector-talle"
+                >
+
+                    <option value="">
+                        Seleccionar talle
+                    </option>
+
+                    ${
+                        opcionesTalles ||
+
+                        `
+                        <option value="">
+                            Sin talles disponibles
+                        </option>
+                        `
+                    }
+
+                </select>
+
+            </div>
+
+
+            <div class="cantidad">
+
+                <h3>
+                    Cantidad
+                </h3>
+
+
+                <div class="cantidad-control">
+
+                    <button
+                        type="button"
+                        onclick="cambiarCantidad(-1)"
+                    >
+                        −
+                    </button>
+
+
+                    <input
+                        type="number"
+                        id="cantidadSeleccionada"
+                        value="1"
+                        min="1"
+                    >
+
+
+                    <button
+                        type="button"
+                        onclick="cambiarCantidad(1)"
+                    >
+                        +
+                    </button>
+
+                </div>
 
             </div>
 
@@ -759,7 +985,7 @@ async function cargarProducto() {
 
 
             <a
-                href="https://wa.me/5492226622331"
+                href="https://wa.me/5491140615513"
                 target="_blank"
                 class="whatsapp"
             >
@@ -782,6 +1008,16 @@ actualizarCantidadCarrito();
 cargarProducto();
 
 </script>
+
+
+<a
+    href="https://wa.me/5491140615513"
+    class="whatsapp-flotante"
+    target="_blank"
+>
+    💬
+</a>
+
 
 </body>
 
