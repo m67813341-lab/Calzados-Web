@@ -91,7 +91,7 @@ nav a {
     padding: 0;
     border-radius: 0;
 }
-    
+
 nav a:hover {
     opacity: 0.6;
 }
@@ -311,6 +311,7 @@ Zapatos • Sandalias • Botas
 <!-- =========================
      NAVEGACIÓN
 ========================= -->
+
 <nav>
 
 <a href="index.html">
@@ -469,7 +470,7 @@ Consultanos por disponibilidad, talles y colores.
 </p>
 
 <a
-href="https://wa.me/5492226622331"
+href="https://wa.me/5491140615513"
 class="boton"
 target="_blank"
 >
@@ -505,6 +506,7 @@ ALMA BOHO
 
 </footer>
 
+
 <script>
 
 function actualizarCantidadCarrito() {
@@ -515,10 +517,15 @@ function actualizarCantidadCarrito() {
         ) || [];
 
     const cantidad =
-        document.getElementById("cantidadCarrito");
+        document.getElementById(
+            "cantidadCarrito"
+        );
 
     if (cantidad) {
-        cantidad.textContent = carrito.length;
+
+        cantidad.textContent =
+            carrito.length;
+
     }
 
 }
@@ -526,7 +533,7 @@ function actualizarCantidadCarrito() {
 actualizarCantidadCarrito();
 
 </script>
-    
+
 </body>
 
 </html>
