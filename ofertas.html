@@ -27,7 +27,9 @@ body {
     color: #222;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 header {
     background: #111;
@@ -62,12 +64,18 @@ header p {
     color: #ccc;
 }
 
-/* NAVEGACIÓN */
+/* =========================
+   NAVEGACIÓN
+========================= */
 
 nav {
     background: white;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -80,7 +88,20 @@ nav a {
     margin: 0 10px;
 }
 
-/* CATÁLOGO */
+.carrito-nav {
+    color: #222;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+nav a:hover {
+    opacity: 0.6;
+}
+
+/* =========================
+   CATÁLOGO
+========================= */
 
 .catalogo {
     max-width: 1100px;
@@ -102,7 +123,9 @@ nav a {
     color: #777;
 }
 
-/* PRODUCTOS */
+/* =========================
+   PRODUCTOS
+========================= */
 
 .productos {
     display: grid;
@@ -208,7 +231,9 @@ nav a {
     padding: 30px;
 }
 
-/* FOTO GRANDE */
+/* =========================
+   FOTO GRANDE
+========================= */
 
 .modal {
     display: none;
@@ -242,7 +267,9 @@ nav a {
     line-height: 1;
 }
 
-/* CONTACTO */
+/* =========================
+   CONTACTO
+========================= */
 
 .contacto {
     background: white;
@@ -278,7 +305,9 @@ nav a {
     font-weight: bold;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     background: #111;
@@ -292,7 +321,9 @@ footer p {
     margin-top: 15px;
 }
 
-/* CELULAR */
+/* =========================
+   CELULAR
+========================= */
 
 @media (max-width: 500px) {
 
@@ -317,6 +348,11 @@ footer p {
         font-size: 18px;
     }
 
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
 }
 
 </style>
@@ -339,15 +375,29 @@ footer p {
 
 <nav>
 
-<a href="index.html">Inicio</a>
+<a href="index.html">
+Inicio
+</a>
 
-<a href="catalogo.html">🛍️ Catálogo</a>
+<a href="catalogo.html">
+🛍️ Catálogo
+</a>
 
-<a href="ofertas.html">🔥 Ofertas</a>
+<a href="ofertas.html">
+🔥 Ofertas
+</a>
 
-<a href="nuevo.html">🆕 Nuevo catálogo</a>
+<a href="nuevo.html">
+🆕 Nuevo catálogo
+</a>
 
-<a href="index.html#contacto">Contacto</a>
+<a href="index.html#contacto">
+Contacto
+</a>
+
+<a href="carrito.html" class="carrito-nav">
+🛒 Carrito (<span id="cantidadCarrito">0</span>)
+</a>
 
 </nav>
 
@@ -383,7 +433,7 @@ Consultanos por disponibilidad, talles y colores.
 </p>
 
 <a
-href="https://wa.me/5492226622331"
+href="https://wa.me/5491140615513"
 class="boton"
 target="_blank"
 >
@@ -416,7 +466,9 @@ ALMA BOHO
 </footer>
 
 
-<!-- MODAL FOTO -->
+<!-- =========================
+     MODAL FOTO
+========================= -->
 
 <div
 class="modal"
@@ -442,7 +494,9 @@ alt="Producto"
 
 <script>
 
-/* FOTO GRANDE */
+/* =========================
+   FOTO GRANDE
+========================= */
 
 function abrirFoto(src) {
 
@@ -468,7 +522,9 @@ function cerrarFoto(event) {
 }
 
 
-/* CARGAR SOLO OFERTAS */
+/* =========================
+   CARGAR SOLO OFERTAS
+========================= */
 
 async function cargarOfertas() {
 
@@ -476,7 +532,8 @@ async function cargarOfertas() {
         document.getElementById("listaOfertas");
 
 
-    const { data, error } = await supabaseClient
+    const { data, error } =
+        await supabaseClient
 
         .from("Productos")
 
@@ -484,17 +541,27 @@ async function cargarOfertas() {
 
         .eq("Oferta", true)
 
-        .order("id", { ascending: true });
+        .order("id", {
+            ascending: true
+        });
 
 
     if (error) {
 
-        console.error("Error de Supabase:", error);
+        console.error(
+            "Error de Supabase:",
+            error
+        );
 
         contenedor.innerHTML = `
+
             <div class="error">
-                No se pudieron cargar las ofertas.
+
+                No se pudieron cargar
+                las ofertas.
+
             </div>
+
         `;
 
         return;
@@ -505,9 +572,13 @@ async function cargarOfertas() {
     if (!data || data.length === 0) {
 
         contenedor.innerHTML = `
+
             <div class="cargando">
+
                 No hay ofertas disponibles.
+
             </div>
+
         `;
 
         return;
@@ -530,15 +601,17 @@ async function cargarOfertas() {
         let botonesTalles = "";
 
 
-        listaTalles.forEach(([talle, cantidad]) => {
+        listaTalles.forEach(
+            ([talle, cantidad]) => {
 
             if (Number(cantidad) > 0) {
 
                 const mensaje =
                     `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
 
+
                 const whatsapp =
-                    "https://wa.me/5492226622331?text=" +
+                    "https://wa.me/5491140615513?text=" +
                     encodeURIComponent(mensaje);
 
 
@@ -651,19 +724,53 @@ async function cargarOfertas() {
         `;
 
 
-        contenedor.appendChild(tarjeta);
+        contenedor.appendChild(
+            tarjeta
+        );
 
     });
 
 }
 
 
-/* INICIAR */
+/* =========================
+   CARRITO
+========================= */
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+
+    const cantidad =
+        document.getElementById(
+            "cantidadCarrito"
+        );
+
+
+    if (cantidad) {
+
+        cantidad.textContent =
+            carrito.length;
+
+    }
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
 
 cargarOfertas();
+
+actualizarCantidadCarrito();
 
 </script>
 
 </body>
 
-  </html>
+</html>
