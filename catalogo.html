@@ -71,7 +71,11 @@ header p {
 nav {
     background: white;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -82,6 +86,17 @@ nav a {
     text-decoration: none;
     font-weight: bold;
     margin: 0 10px;
+}
+
+.carrito-nav {
+    color: #222;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+nav a:hover {
+    opacity: 0.6;
 }
 
 /* =========================
@@ -395,6 +410,11 @@ footer p {
         width: 100%;
     }
 
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
 }
 
 </style>
@@ -430,7 +450,7 @@ footer p {
 <a href="carrito.html" class="carrito-nav">
     🛒 Carrito (<span id="cantidadCarrito">0</span>)
 </a>
-    
+
 </nav>
 
 
@@ -445,10 +465,6 @@ footer p {
 </div>
 
 
-<!-- =========================
-     FILTROS
-========================= -->
-
 <div class="filtros">
 
     <div class="filtros-titulo">
@@ -458,22 +474,12 @@ footer p {
     <div class="filtros-controles">
 
         <select class="filtro" id="filtroTalle">
-
-            <option value="">
-                Todos los talles
-            </option>
-
+            <option value="">Todos los talles</option>
         </select>
-
 
         <select class="filtro" id="filtroColor">
-
-            <option value="">
-                Todos los colores
-            </option>
-
+            <option value="">Todos los colores</option>
         </select>
-
 
         <select class="filtro" id="filtroPrecio">
 
@@ -499,7 +505,6 @@ footer p {
 
         </select>
 
-
         <button
             class="boton-limpiar"
             onclick="limpiarFiltros()"
@@ -512,10 +517,6 @@ footer p {
 </div>
 
 
-<!-- =========================
-     PRODUCTOS
-========================= -->
-
 <div class="productos" id="listaProductos">
 
 <div class="cargando">
@@ -527,10 +528,6 @@ footer p {
 </section>
 
 
-<!-- =========================
-     CONTACTO
-========================= -->
-
 <section class="contacto">
 
 <h2>¿Te interesa algún producto?</h2>
@@ -540,7 +537,7 @@ Consultanos por disponibilidad, talles y colores.
 </p>
 
 <a
-href="https://wa.me/5492226622331"
+href="https://wa.me/5491140615513"
 class="boton"
 target="_blank"
 >
@@ -560,10 +557,6 @@ target="_blank"
 </section>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
 
 <h3>
@@ -576,10 +569,6 @@ ALMA BOHO
 
 </footer>
 
-
-<!-- =========================
-     MODAL FOTO
-========================= -->
 
 <div
 class="modal"
@@ -647,9 +636,7 @@ function crearTarjeta(producto) {
     const listaTalles =
         Object.entries(talles);
 
-
     let botonesTalles = "";
-
 
     listaTalles.forEach(([talle, cantidad]) => {
 
@@ -659,9 +646,8 @@ function crearTarjeta(producto) {
                 `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
 
             const whatsapp =
-                "https://wa.me/5492226622331?text=" +
+                "https://wa.me/5491140615513?text=" +
                 encodeURIComponent(mensaje);
-
 
             botonesTalles += `
 
@@ -681,7 +667,6 @@ function crearTarjeta(producto) {
 
 
     let stockTexto = "";
-
 
     if (listaTalles.length > 0) {
 
@@ -711,7 +696,6 @@ function crearTarjeta(producto) {
     const tarjeta =
         document.createElement("div");
 
-
     tarjeta.className =
         "producto";
 
@@ -719,13 +703,13 @@ function crearTarjeta(producto) {
     tarjeta.innerHTML = `
 
         <a href="producto.html?id=${producto.id}">
-    
-    <img
-        src="${producto.Foto}"
-        alt="${producto.Nombre} ${producto.Color}"
-    >
 
-</a>
+            <img
+                src="${producto.Foto}"
+                alt="${producto.Nombre} ${producto.Color}"
+            >
+
+        </a>
 
         <div class="producto-info">
 
@@ -776,7 +760,6 @@ function crearTarjeta(producto) {
 
     `;
 
-
     return tarjeta;
 
 }
@@ -790,7 +773,6 @@ function mostrarProductos(productos) {
 
     const contenedor =
         document.getElementById("listaProductos");
-
 
     contenedor.innerHTML = "";
 
@@ -836,7 +818,6 @@ function prepararFiltros() {
     const filtroColor =
         document.getElementById("filtroColor");
 
-
     const talles = new Set();
 
     const colores = new Set();
@@ -844,11 +825,8 @@ function prepararFiltros() {
 
     productosTodos.forEach(producto => {
 
-        /* Talles */
-
         const tallesProducto =
             producto.Talles || {};
-
 
         Object.entries(tallesProducto).forEach(
             ([talle, cantidad]) => {
@@ -863,8 +841,6 @@ function prepararFiltros() {
         );
 
 
-        /* Colores */
-
         if (producto.Color) {
 
             colores.add(
@@ -875,10 +851,6 @@ function prepararFiltros() {
 
     });
 
-
-    /* =========================
-       TALLE
-    ========================= */
 
     [...talles]
 
@@ -892,14 +864,11 @@ function prepararFiltros() {
             const opcion =
                 document.createElement("option");
 
-
             opcion.value =
                 talle;
 
-
             opcion.textContent =
                 `Talle ${talle}`;
-
 
             filtroTalle.appendChild(
                 opcion
@@ -907,10 +876,6 @@ function prepararFiltros() {
 
         });
 
-
-    /* =========================
-       COLOR
-    ========================= */
 
     [...colores]
 
@@ -921,14 +886,11 @@ function prepararFiltros() {
             const opcion =
                 document.createElement("option");
 
-
             opcion.value =
                 color;
 
-
             opcion.textContent =
                 color;
-
 
             filtroColor.appendChild(
                 opcion
@@ -936,10 +898,6 @@ function prepararFiltros() {
 
         });
 
-
-    /* =========================
-       ACTIVAR FILTROS
-    ========================= */
 
     filtroTalle.addEventListener(
         "change",
@@ -990,11 +948,6 @@ function aplicarFiltros() {
     const productosFiltrados =
         productosTodos.filter(producto => {
 
-
-            /* =========================
-               TALLE
-            ========================= */
-
             let tieneTalle = true;
 
 
@@ -1020,10 +973,6 @@ function aplicarFiltros() {
             }
 
 
-            /* =========================
-               COLOR
-            ========================= */
-
             let tieneColor = true;
 
 
@@ -1042,10 +991,6 @@ function aplicarFiltros() {
 
             }
 
-
-            /* =========================
-               PRECIO
-            ========================= */
 
             let tienePrecio = true;
 
@@ -1104,16 +1049,13 @@ function limpiarFiltros() {
         "filtroTalle"
     ).value = "";
 
-
     document.getElementById(
         "filtroColor"
     ).value = "";
 
-
     document.getElementById(
         "filtroPrecio"
     ).value = "";
-
 
     mostrarProductos(
         productosTodos
@@ -1192,9 +1134,7 @@ async function cargarProductos() {
 
     productosTodos = data;
 
-
     prepararFiltros();
-
 
     mostrarProductos(
         productosTodos
@@ -1204,10 +1144,9 @@ async function cargarProductos() {
 
 
 /* =========================
-   INICIAR
+   CARRITO
 ========================= */
 
-cargarProductos();
 function actualizarCantidadCarrito() {
 
     const carrito =
@@ -1216,15 +1155,28 @@ function actualizarCantidadCarrito() {
         ) || [];
 
     const cantidad =
-        document.getElementById("cantidadCarrito");
+        document.getElementById(
+            "cantidadCarrito"
+        );
 
     if (cantidad) {
-        cantidad.textContent = carrito.length;
+
+        cantidad.textContent =
+            carrito.length;
+
     }
 
 }
 
+
+/* =========================
+   INICIAR
+========================= */
+
+cargarProductos();
+
 actualizarCantidadCarrito();
+
 </script>
 
 </body>
