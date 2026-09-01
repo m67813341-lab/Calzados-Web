@@ -714,11 +714,14 @@ function crearTarjeta(producto) {
 
     tarjeta.innerHTML = `
 
-        <img
-            src="${producto.Foto}"
-            alt="${producto.Nombre} ${producto.Color}"
-            onclick="abrirFoto(this.src)"
-        >
+        <a href="producto.html?id=${producto.id}">
+    
+    <img
+        src="${producto.Foto}"
+        alt="${producto.Nombre} ${producto.Color}"
+    >
+
+</a>
 
         <div class="producto-info">
 
