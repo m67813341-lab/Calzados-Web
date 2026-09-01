@@ -83,6 +83,14 @@ nav a {
     margin: 0 10px;
 }
 
+.carrito-nav {
+    display: inline-block;
+    background: #111;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 7px;
+}
+
 /* =========================
    PRODUCTO
 ========================= */
@@ -169,7 +177,11 @@ nav a {
     color: #666;
 }
 
-    .agregar-carrito {
+/* =========================
+   BOTÓN CARRITO
+========================= */
+
+.agregar-carrito {
     display: block;
     width: 100%;
     margin-top: 25px;
@@ -187,9 +199,16 @@ nav a {
     background: #111;
     color: white;
 }
+
+/* =========================
+   WHATSAPP
+========================= */
+
 .whatsapp {
     display: inline-block;
-    margin-top: 25px;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
     background: #111;
     color: white;
     padding: 14px 22px;
@@ -197,6 +216,14 @@ nav a {
     text-decoration: none;
     font-weight: bold;
 }
+
+.whatsapp:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   VOLVER
+========================= */
 
 .volver {
     display: inline-block;
@@ -262,6 +289,10 @@ footer p {
         font-size: 26px;
     }
 
+    nav a {
+        margin: 0 5px;
+    }
+
 }
 
 </style>
@@ -313,6 +344,10 @@ Inicio
 Contacto
 </a>
 
+<a href="carrito.html" class="carrito-nav">
+🛒 Carrito (<span id="cantidadCarrito">0</span>)
+</a>
+
 </nav>
 
 
@@ -354,6 +389,107 @@ ALMA BOHO
 <script>
 
 /* =========================
+   VARIABLES
+========================= */
+
+let productoActual = null;
+
+
+/* =========================
+   CARRITO
+========================= */
+
+function obtenerCarrito() {
+
+    return JSON.parse(
+        localStorage.getItem("carrito")
+    ) || [];
+
+}
+
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        obtenerCarrito();
+
+
+    const cantidad =
+        carrito.length;
+
+
+    const elemento =
+        document.getElementById(
+            "cantidadCarrito"
+        );
+
+
+    if (elemento) {
+
+        elemento.textContent =
+            cantidad;
+
+    }
+
+}
+
+
+function agregarAlCarrito() {
+
+    if (!productoActual) {
+
+        alert(
+            "El producto todavía no está cargado."
+        );
+
+        return;
+
+    }
+
+
+    const carrito =
+        obtenerCarrito();
+
+
+    const productoCarrito = {
+
+        id: productoActual.id,
+
+        nombre: productoActual.Nombre,
+
+        color: productoActual.Color,
+
+        precio: Number(
+            productoActual.Precio
+        ),
+
+        foto: productoActual.Foto
+
+    };
+
+
+    carrito.push(
+        productoCarrito
+    );
+
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+
+    actualizarCantidadCarrito();
+
+
+    alert(
+        "🛒 Producto agregado al carrito"
+    );
+
+}
+
+
+/* =========================
    OBTENER ID DEL PRODUCTO
 ========================= */
 
@@ -361,6 +497,7 @@ const parametros =
     new URLSearchParams(
         window.location.search
     );
+
 
 const id =
     parametros.get("id");
@@ -373,7 +510,9 @@ const id =
 async function cargarProducto() {
 
     const contenedor =
-        document.getElementById("producto");
+        document.getElementById(
+            "producto"
+        );
 
 
     if (!id) {
@@ -382,7 +521,8 @@ async function cargarProducto() {
 
             <div class="error">
 
-                No se encontró el producto.
+                No se encontró
+                el producto.
 
             </div>
 
@@ -429,7 +569,7 @@ async function cargarProducto() {
     }
 
 
-    const producto =
+    productoActual =
         data;
 
 
@@ -438,7 +578,7 @@ async function cargarProducto() {
     ========================= */
 
     const talles =
-        producto.Talles || {};
+        productoActual.Talles || {};
 
 
     const listaTalles =
@@ -454,7 +594,7 @@ async function cargarProducto() {
             if (Number(cantidad) > 0) {
 
                 const mensaje =
-                    `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
+                    `Hola, quiero consultar por el ${productoActual.Nombre} ${productoActual.Color}, talle ${talle}.`;
 
 
                 const whatsapp =
@@ -508,19 +648,23 @@ async function cargarProducto() {
     ========================= */
 
     const precio =
-        Number(producto.Precio)
+        Number(
+            productoActual.Precio
+        )
         .toLocaleString("es-AR");
 
 
     const precioAnterior =
 
-        producto.Oferta &&
-        producto.PrecioAnterior
+        productoActual.Oferta &&
+        productoActual.PrecioAnterior
 
         ?
 
         `<span class="precio-anterior">
-            $${Number(producto.PrecioAnterior).toLocaleString("es-AR")}
+            $${Number(
+                productoActual.PrecioAnterior
+            ).toLocaleString("es-AR")}
         </span>`
 
         :
@@ -541,8 +685,8 @@ async function cargarProducto() {
         <div>
 
             <img
-                src="${producto.Foto}"
-                alt="${producto.Nombre} ${producto.Color}"
+                src="${productoActual.Foto}"
+                alt="${productoActual.Nombre} ${productoActual.Color}"
                 class="producto-imagen"
             >
 
@@ -552,14 +696,14 @@ async function cargarProducto() {
         <div class="producto-info">
 
             <h1>
-                ${producto.Nombre}
+                ${productoActual.Nombre}
             </h1>
 
 
             <div class="codigo">
 
                 Código:
-                ${producto.Codigo}
+                ${productoActual.Codigo}
 
             </div>
 
@@ -579,7 +723,7 @@ async function cargarProducto() {
                     Color:
                 </strong>
 
-                ${producto.Color}
+                ${productoActual.Color}
 
             </div>
 
@@ -605,12 +749,15 @@ async function cargarProducto() {
 
             </div>
 
-<button
-    class="agregar-carrito"
-    onclick="agregarAlCarrito()"
->
-    🛒 Agregar al carrito
-</button>
+
+            <button
+                class="agregar-carrito"
+                onclick="agregarAlCarrito()"
+            >
+                🛒 Agregar al carrito
+            </button>
+
+
             <a
                 href="https://wa.me/5492226622331"
                 target="_blank"
@@ -630,10 +777,12 @@ async function cargarProducto() {
    INICIAR
 ========================= */
 
+actualizarCantidadCarrito();
+
 cargarProducto();
 
 </script>
 
 </body>
 
-  </html>
+</html>
