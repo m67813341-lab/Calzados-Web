@@ -334,7 +334,71 @@ footer p {
     }
 
 }
+/* =========================
+   FILTROS
+========================= */
 
+.filtros {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.filtros-titulo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.filtros-controles {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filtro {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.boton-limpiar {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #111;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton-limpiar:hover {
+    opacity: 0.85;
+}
+
+.sin-resultados {
+    text-align: center;
+    color: #777;
+    padding: 35px;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 500px) {
+
+    .filtros-controles {
+        flex-direction: column;
+    }
+
+    .filtro,
+    .boton-limpiar {
+        width: 100%;
+    }
+
+}
 </style>
 
 </head>
@@ -378,7 +442,40 @@ footer p {
 
 </div>
 
+<div class="filtros">
 
+    <div class="filtros-titulo">
+        🔎 Filtrar productos
+    </div>
+
+    <div class="filtros-controles">
+
+        <select class="filtro" id="filtroTalle">
+            <option value="">Todos los talles</option>
+        </select>
+
+        <select class="filtro" id="filtroColor">
+            <option value="">Todos los colores</option>
+        </select>
+
+        <select class="filtro" id="filtroPrecio">
+            <option value="">Todos los precios</option>
+            <option value="0-20000">Hasta $20.000</option>
+            <option value="20000-30000">$20.000 - $30.000</option>
+            <option value="30000-50000">$30.000 - $50.000</option>
+            <option value="50000-999999999">Más de $50.000</option>
+        </select>
+
+        <button
+            class="boton-limpiar"
+            onclick="limpiarFiltros()"
+        >
+            🔄 Limpiar filtros
+        </button>
+
+    </div>
+
+</div>
 <div class="productos" id="listaProductos">
 
 <div class="cargando">
@@ -458,6 +555,8 @@ alt="Producto"
 
 <script>
 
+    let productosTodos = [];
+    
 /* =========================
    FOTO GRANDE
 ========================= */
@@ -504,6 +603,7 @@ async function cargarProductos() {
 
         .order("id", { ascending: true });
 
+    productosTodos = data;
 
     if (error) {
 
@@ -681,6 +781,102 @@ async function cargarProductos() {
    INICIAR
 ========================= */
 
+    function aplicarFiltros() {
+
+    const talle =
+        document.getElementById("filtroTalle").value;
+
+    const color =
+        document.getElementById("filtroColor").value;
+
+    const precio =
+        document.getElementById("filtroPrecio").value;
+
+
+    const productosFiltrados =
+        productosTodos.filter(producto => {
+
+            /* FILTRO DE TALLE */
+
+            let tieneTalle = true;
+
+            if (talle !== "") {
+
+                const talles =
+                    producto.Talles || {};
+
+                tieneTalle =
+                    Object.entries(talles).some(
+                        ([t, cantidad]) =>
+                            t === talle &&
+                            Number(cantidad) > 0
+                    );
+
+            }
+
+
+            /* FILTRO DE COLOR */
+
+            let tieneColor = true;
+
+            if (color !== "") {
+
+                tieneColor =
+                    String(producto.Color).toLowerCase() ===
+                    color.toLowerCase();
+
+            }
+
+
+            /* FILTRO DE PRECIO */
+
+            let tienePrecio = true;
+
+            if (precio !== "") {
+
+                const partes =
+                    precio.split("-");
+
+                const minimo =
+                    Number(partes[0]);
+
+                const maximo =
+                    Number(partes[1]);
+
+                const precioProducto =
+                    Number(producto.Precio);
+
+                tienePrecio =
+                    precioProducto >= minimo &&
+                    precioProducto <= maximo;
+
+            }
+
+
+            return
+                tieneTalle &&
+                tieneColor &&
+                tienePrecio;
+
+        });
+
+
+    mostrarProductos(productosFiltrados);
+
+}
+
+
+function limpiarFiltros() {
+
+    document.getElementById("filtroTalle").value = "";
+
+    document.getElementById("filtroColor").value = "";
+
+    document.getElementById("filtroPrecio").value = "";
+
+    mostrarProductos(productosTodos);
+
+}
 cargarProductos();
 
 </script>
