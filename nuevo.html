@@ -71,7 +71,11 @@ header p {
 nav {
     background: white;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -82,6 +86,17 @@ nav a {
     text-decoration: none;
     font-weight: bold;
     margin: 0 10px;
+}
+
+.carrito-nav {
+    color: #222;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+nav a:hover {
+    opacity: 0.6;
 }
 
 /* =========================
@@ -333,6 +348,11 @@ footer p {
         font-size: 18px;
     }
 
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
 }
 
 </style>
@@ -344,26 +364,53 @@ footer p {
 <header>
 
 <div class="logo">
-    <div class="alma">Alma</div>
-    <div class="boho">BOHO</div>
+
+    <div class="alma">
+        Alma
+    </div>
+
+    <div class="boho">
+        BOHO
+    </div>
+
 </div>
 
-<p>Zapatos • Sandalias • Botas</p>
+<p>
+Zapatos • Sandalias • Botas
+</p>
 
 </header>
 
 
+<!-- =========================
+     NAVEGACIÓN
+========================= -->
+
 <nav>
 
-<a href="index.html">Inicio</a>
+<a href="index.html">
+Inicio
+</a>
 
-<a href="catalogo.html">🛍️ Catálogo</a>
+<a href="catalogo.html">
+🛍️ Catálogo
+</a>
 
-<a href="ofertas.html">🔥 Ofertas</a>
+<a href="ofertas.html">
+🔥 Ofertas
+</a>
 
-<a href="nuevo.html">🆕 Nuevo catálogo</a>
+<a href="nuevo.html">
+🆕 Nuevo catálogo
+</a>
 
-<a href="index.html#contacto">Contacto</a>
+<a href="index.html#contacto">
+Contacto
+</a>
+
+<a href="carrito.html" class="carrito-nav">
+🛒 Carrito (<span id="cantidadCarrito">0</span>)
+</a>
 
 </nav>
 
@@ -372,17 +419,24 @@ footer p {
 
 <div class="titulo">
 
-<h2>🆕 Nuevo catálogo</h2>
+<h2>
+🆕 Nuevo catálogo
+</h2>
 
-<p>Conocé nuestros modelos más nuevos.</p>
+<p>
+Conocé nuestros modelos más nuevos.
+</p>
 
 </div>
 
 
-<div class="productos" id="listaNuevos">
+<div
+class="productos"
+id="listaNuevos"
+>
 
 <div class="cargando">
-Cargando novedades...
+Cargando productos...
 </div>
 
 </div>
@@ -390,16 +444,22 @@ Cargando novedades...
 </section>
 
 
+<!-- =========================
+     CONTACTO
+========================= -->
+
 <section class="contacto">
 
-<h2>¿Te interesa algún producto?</h2>
+<h2>
+¿Te interesa algún producto?
+</h2>
 
 <p>
 Consultanos por disponibilidad, talles y colores.
 </p>
 
 <a
-href="https://wa.me/5492226622331"
+href="https://wa.me/5491140615513"
 class="boton"
 target="_blank"
 >
@@ -419,6 +479,10 @@ target="_blank"
 </section>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
 <h3>
@@ -432,7 +496,9 @@ ALMA BOHO
 </footer>
 
 
-<!-- MODAL FOTO -->
+<!-- =========================
+     MODAL FOTO
+========================= -->
 
 <div
 class="modal"
@@ -487,7 +553,7 @@ function cerrarFoto(event) {
 
 
 /* =========================
-   CARGAR SOLO PRODUCTOS NUEVOS
+   CARGAR NUEVOS
 ========================= */
 
 async function cargarNuevos() {
@@ -496,25 +562,38 @@ async function cargarNuevos() {
         document.getElementById("listaNuevos");
 
 
-    const { data, error } = await supabaseClient
+    const { data, error } =
+        await supabaseClient
 
         .from("Productos")
 
         .select("*")
 
-        .eq("Nuevo", true)
-
-        .order("id", { ascending: true });
+        .order(
+            "id",
+            {
+                ascending: false
+            }
+        );
 
 
     if (error) {
 
-        console.error("Error de Supabase:", error);
+        console.error(
+            "Error de Supabase:",
+            error
+        );
+
 
         contenedor.innerHTML = `
+
             <div class="error">
-                No se pudieron cargar las novedades.
+
+                No se pudieron cargar
+                los productos.
+
             </div>
+
         `;
 
         return;
@@ -525,9 +604,13 @@ async function cargarNuevos() {
     if (!data || data.length === 0) {
 
         contenedor.innerHTML = `
+
             <div class="cargando">
-                No hay novedades disponibles.
+
+                No hay productos disponibles.
+
             </div>
+
         `;
 
         return;
@@ -550,33 +633,36 @@ async function cargarNuevos() {
         let botonesTalles = "";
 
 
-        listaTalles.forEach(([talle, cantidad]) => {
+        listaTalles.forEach(
+            ([talle, cantidad]) => {
 
-            if (Number(cantidad) > 0) {
+                if (Number(cantidad) > 0) {
 
-                const mensaje =
-                    `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
-
-                const whatsapp =
-                    "https://wa.me/5492226622331?text=" +
-                    encodeURIComponent(mensaje);
+                    const mensaje =
+                        `Hola, quiero consultar por el ${producto.Nombre} ${producto.Color}, talle ${talle}.`;
 
 
-                botonesTalles += `
+                    const whatsapp =
+                        "https://wa.me/5491140615513?text=" +
+                        encodeURIComponent(mensaje);
 
-                    <a
-                        class="talle"
-                        href="${whatsapp}"
-                        target="_blank"
-                    >
-                        ${talle}
-                    </a>
 
-                `;
+                    botonesTalles += `
+
+                        <a
+                            class="talle"
+                            href="${whatsapp}"
+                            target="_blank"
+                        >
+                            ${talle}
+                        </a>
+
+                    `;
+
+                }
 
             }
-
-        });
+        );
 
 
         let stockTexto = "";
@@ -617,11 +703,17 @@ async function cargarNuevos() {
 
         tarjeta.innerHTML = `
 
-            <img
-                src="${producto.Foto}"
-                alt="${producto.Nombre} ${producto.Color}"
-                onclick="abrirFoto(this.src)"
+            <a
+                href="producto.html?id=${producto.id}"
             >
+
+                <img
+                    src="${producto.Foto}"
+                    alt="${producto.Nombre} ${producto.Color}"
+                >
+
+            </a>
+
 
             <div class="producto-info">
 
@@ -629,21 +721,29 @@ async function cargarNuevos() {
                     ${producto.Nombre}
                 </h3>
 
+
                 <div class="codigo">
                     Código: ${producto.Codigo}
                 </div>
 
+
                 <div class="precio">
 
                     ${
-                        producto.Oferta && producto.PrecioAnterior
-                        ? `<span class="precio-anterior">$${Number(producto.PrecioAnterior).toLocaleString("es-AR")}</span>`
-                        : ""
+                        producto.Oferta &&
+                        producto.PrecioAnterior
+                        ?
+                        `<span class="precio-anterior">
+                            $${Number(producto.PrecioAnterior).toLocaleString("es-AR")}
+                        </span>`
+                        :
+                        ""
                     }
 
                     $${precio}
 
                 </div>
+
 
                 <div class="datos">
 
@@ -651,6 +751,7 @@ async function cargarNuevos() {
                     ${producto.Color}
 
                 </div>
+
 
                 <div class="talles">
 
@@ -662,9 +763,11 @@ async function cargarNuevos() {
 
                 </div>
 
+
                 <div class="stock">
 
-                    Stock: ${stockTexto || "Sin stock"}
+                    Stock:
+                    ${stockTexto || "Sin stock"}
 
                 </div>
 
@@ -673,9 +776,39 @@ async function cargarNuevos() {
         `;
 
 
-        contenedor.appendChild(tarjeta);
+        contenedor.appendChild(
+            tarjeta
+        );
 
     });
+
+}
+
+
+/* =========================
+   CARRITO
+========================= */
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+
+    const cantidad =
+        document.getElementById(
+            "cantidadCarrito"
+        );
+
+
+    if (cantidad) {
+
+        cantidad.textContent =
+            carrito.length;
+
+    }
 
 }
 
@@ -686,8 +819,10 @@ async function cargarNuevos() {
 
 cargarNuevos();
 
+actualizarCantidadCarrito();
+
 </script>
 
 </body>
 
-  </html>
+</html>
