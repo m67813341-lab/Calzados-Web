@@ -493,6 +493,28 @@ ALMA BOHO
 
 </footer>
 
+<script>
+
+function actualizarCantidadCarrito() {
+
+    const carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+    const cantidad =
+        document.getElementById("cantidadCarrito");
+
+    if (cantidad) {
+        cantidad.textContent = carrito.length;
+    }
+
+}
+
+actualizarCantidadCarrito();
+
+</script>
+    
 </body>
 
 </html>
