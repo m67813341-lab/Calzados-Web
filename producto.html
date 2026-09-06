@@ -70,7 +70,11 @@ header p {
 nav {
     background: white;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -363,6 +367,24 @@ footer p {
 
     nav a {
         margin: 0 5px;
+        font-size: 14px;
+    }
+
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
     }
 
 }
@@ -486,7 +508,11 @@ function actualizarCantidadCarrito() {
         obtenerCarrito();
 
     const cantidad =
-        carrito.length;
+        carrito.reduce(
+            (total, producto) =>
+                total + Number(producto.cantidad || 1),
+            0
+        );
 
     const elemento =
         document.getElementById(

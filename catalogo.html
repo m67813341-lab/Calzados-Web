@@ -155,6 +155,11 @@ nav a:hover {
     font-size: 14px;
 }
 
+.producto-info {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
 .boton-limpiar {
     padding: 10px 15px;
     border: none;
@@ -163,6 +168,7 @@ nav a:hover {
     color: white;
     font-weight: bold;
     cursor: pointer;
+    min-height: 44px;
 }
 
 .boton-limpiar:hover {
@@ -260,6 +266,9 @@ nav a:hover {
     margin: 3px;
     font-weight: bold;
     font-size: 14px;
+    min-width: 44px;
+    min-height: 44px;
+    text-align: center;
 }
 
 .talle:hover {
@@ -415,6 +424,27 @@ footer p {
         font-size: 14px;
     }
 
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
+    }
+
+    .productos {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 </style>
@@ -472,6 +502,13 @@ footer p {
     </div>
 
     <div class="filtros-controles">
+
+        <input
+            type="search"
+            id="busquedaProducto"
+            class="filtro"
+            placeholder="Buscar producto"
+        >
 
         <select class="filtro" id="filtroTalle">
             <option value="">Todos los talles</option>
@@ -910,6 +947,13 @@ function prepararFiltros() {
         aplicarFiltros
     );
 
+    document
+        .getElementById("busquedaProducto")
+        .addEventListener(
+            "input",
+            aplicarFiltros
+        );
+
 
     document
         .getElementById("filtroPrecio")
@@ -926,6 +970,13 @@ function prepararFiltros() {
 ========================= */
 
 function aplicarFiltros() {
+
+    const busqueda =
+        document.getElementById(
+            "busquedaProducto"
+        ).value
+        .toLowerCase()
+        .trim();
 
     const talle =
         document.getElementById(
@@ -947,6 +998,11 @@ function aplicarFiltros() {
 
     const productosFiltrados =
         productosTodos.filter(producto => {
+
+            const tieneNombre =
+                String(producto.Nombre || "")
+                .toLowerCase()
+                .includes(busqueda);
 
             let tieneTalle = true;
 
@@ -1022,6 +1078,8 @@ function aplicarFiltros() {
 
 
             return (
+                tieneNombre
+                &&
                 tieneTalle
                 &&
                 tieneColor
@@ -1044,6 +1102,10 @@ function aplicarFiltros() {
 ========================= */
 
 function limpiarFiltros() {
+
+    document.getElementById(
+        "busquedaProducto"
+    ).value = "";
 
     document.getElementById(
         "filtroTalle"
@@ -1159,10 +1221,17 @@ function actualizarCantidadCarrito() {
             "cantidadCarrito"
         );
 
+    const cantidadTotal =
+        carrito.reduce(
+            (total, producto) =>
+                total + Number(producto.cantidad || 1),
+            0
+        );
+
     if (cantidad) {
 
         cantidad.textContent =
-            carrito.length;
+            cantidadTotal;
 
     }
 

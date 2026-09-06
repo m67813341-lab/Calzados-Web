@@ -133,10 +133,12 @@ nav a:hover {
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
 .boton:hover {
     opacity: 0.85;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* =========================
@@ -278,6 +280,23 @@ footer p {
     nav a {
         margin: 0 5px;
         font-size: 14px;
+    }
+
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
     }
 
 }
@@ -526,10 +545,17 @@ function actualizarCantidadCarrito() {
             "cantidadCarrito"
         );
 
+    const cantidadTotal =
+        carrito.reduce(
+            (total, producto) =>
+                total + Number(producto.cantidad || 1),
+            0
+        );
+
     if (cantidad) {
 
         cantidad.textContent =
-            carrito.length;
+            cantidadTotal;
 
     }
 

@@ -67,7 +67,11 @@ header p {
 nav {
     background: white;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -137,6 +141,8 @@ nav a {
 
 .item-info {
     flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .item-info h3 {
@@ -324,6 +330,8 @@ footer p {
     .item-carrito {
         align-items: flex-start;
         flex-wrap: wrap;
+        position: relative;
+        padding-right: 60px;
     }
 
     .item-carrito img {
@@ -348,7 +356,34 @@ footer p {
     }
 
     .eliminar {
-        margin-left: auto;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        min-width: 44px;
+        min-height: 44px;
+        margin-left: 0;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
+    nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    header {
+        padding: 20px 12px;
+    }
+
+    .alma {
+        font-size: 76px;
     }
 
 }
